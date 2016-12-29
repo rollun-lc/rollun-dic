@@ -1,0 +1,44 @@
+{
+  "name": "avz-cmf/saas-skeleton",
+  "description": "Saas skeleton app",
+  "minimum-stability": "stable",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "avz-cmf",
+      "email": "email@example.com"
+    },
+    {
+      "name": "victorynox",
+      "email": "it.proffesor02@gmail.com"
+    }
+  ],
+  "require": {
+    "php": "^5.6 || ^7.0",
+    "zendframework/zend-servicemanager": "^3.0",
+    "zendframework/zend-stratigility": "^1.1",
+    "psr/http-message": "^1.0",
+    "zendframework/zend-diactoros": "^1.1",
+    "zendframework/zend-config": "^2.6",
+    "zendframework/zend-stdlib": "^3",
+    "avz-cmf/zaboy-install": "^2.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^4.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "zaboy\\skeleton\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "zaboy\\test\\skeleton\\": "test/"
+    }
+  },
+  "scripts": {
+    "lib-install": "zaboy\\skeleton\\InstallerCommands::install",
+    "lib-uninstall": "zaboy\\skeleton\\InstallerCommands::uninstall",
+    "lib-reinstall": "zaboy\\skeleton\\InstallerCommands::reinstall"
+  }
+}
