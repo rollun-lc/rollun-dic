@@ -6,7 +6,7 @@
  * Time: 5:47 PM
  */
 
-namespace installer;
+namespace zaboy\skeleton;
 
 
 use Composer\Script\Event;
