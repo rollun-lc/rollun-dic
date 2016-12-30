@@ -29,6 +29,7 @@
 Главные ветви:
 * develop
 * master
+
 Вспомогательные ветви:
 * Ветви функциональностей (Feature branches)
 * Ветви релизов (Release branches)
