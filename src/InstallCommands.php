@@ -10,44 +10,20 @@ namespace installer;
 
 
 use Composer\Script\Event;
-use zaboy\installer\Instal\AbstractCommand;
+use zaboy\installer\Install\AbstractCommand;
+use zaboy\installer\Install\InstallerInterface;
 
 class InstallCommands extends AbstractCommand
 {
-
     /**
-     * return array with Install class for lib;
-     * @return array
+     * @param null $dir
+     * @return InstallerInterface[]
      */
-    public static function getInstallers()
+    public static function getInstallers($dir = null)
     {
-        // TODO: Implement getInstaller() method.
-        return [
-
-        ];
-    }
-
-    /**
-     * @param Event $event
-     */
-    public static function install(Event $event)
-    {
-        parent::command($event, parent::INSTALL, self::getInstallers());
-    }
-
-    /**
-     * @param Event $event
-     */
-    public static function uninstall(Event $event)
-    {
-        parent::command($event, parent::UNINSTALL, self::getInstallers());
-    }
-
-    /**
-     * @param Event $event
-     */
-    public static function reinstall(Event $event)
-    {
-        parent::command($event, parent::REINSTALL, self::getInstallers());
+        if (!isset($dir)) {
+            $dir = __DIR__;
+        }
+        return parent::getInstallers($dir);
     }
 }
