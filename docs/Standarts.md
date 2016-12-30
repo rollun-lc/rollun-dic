@@ -5,9 +5,9 @@
 [pds/skeleton](https://github.com/php-pds/skeleton/blob/1.x/README.md )
 
 Каждое приложение которое требует спецефичиской настройки должно предоставить сооствествующий классы, 
-реализующеее `zaboy\install\InstallerInterface` интерфейс для ее проведения.
+реализующеее `zaboy\installer\Install\InstallerInterface` интерфейс для ее проведения.
 
-Блдее детально [тут](https://github.com/avz-cmf/zaboy-installer).
+Блдее детально о [zaboy-installer](https://github.com/avz-cmf/zaboy-installer).
 
 ## Стандарт кодирование
 
