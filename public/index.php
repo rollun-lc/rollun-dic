@@ -5,7 +5,7 @@
 chdir(dirname(__DIR__));
 
 require 'vendor/autoload.php';
-
+require_once 'config/env_configurator.php';
 use Zend\Diactoros\Server;
 use zaboy\rest\Pipe\MiddlewarePipeOptions;
 use zaboy\rest\Pipe\Factory\RestRqlFactory;

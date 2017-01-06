@@ -16,7 +16,7 @@ $config = include __DIR__ . '/env_config.php';
 
 $configurator = function () use ($nameEnvVars, $config){
     foreach ($nameEnvVars as $var) {
-        $val = getenv($var) ? getenv($var) : isset($config[$var]) ? $config[$var] : null;
+        $val = getenv($var) ? getenv($var) : (isset($config[$var]) ? $config[$var] : null);
         if(isset($val)) {
             define($var, $val);
         }else {

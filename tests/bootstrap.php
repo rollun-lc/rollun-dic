@@ -7,4 +7,4 @@ chdir(dirname(__DIR__));
 // Setup autoloading
 require 'vendor/autoload.php';
 
-require 'config/config.php';
+require_once 'config/env_configurator.php';

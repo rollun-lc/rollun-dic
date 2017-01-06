@@ -9,5 +9,5 @@
 return [
     'APP_ENV' => 'dev',
     'MACHINE_NAME' => '',
-    'HOST' => '',
+    'HOST' => '127.0.0.1',
 ];
