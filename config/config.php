@@ -8,6 +8,7 @@
 
 use Zend\Stdlib\ArrayUtils;
 use Zend\Stdlib\Glob;
+
 $cachedConfigFile = 'data/cache/app_config.php';
 $config = [];
 if (is_file($cachedConfigFile)) {
