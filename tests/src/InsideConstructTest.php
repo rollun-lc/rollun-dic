@@ -6,15 +6,15 @@
  * Time: 3:16 PM
  */
 
-namespace zaboy\test\dic;
+namespace rolluncom\test\dic;
 
 use Interop\Container\ContainerInterface;
-use zaboy\dic\Example\InheritanceSimpleDependency;
-use zaboy\dic\Example\SettersDefault;
-use zaboy\dic\Example\SimpleDependency;
-use zaboy\dic\Example\Inheritance;
-use zaboy\dic\Example\SimpleDependencyInit;
-use zaboy\dic\InsideConstruct;
+use rolluncom\dic\Example\InheritanceSimpleDependency;
+use rolluncom\dic\Example\SettersDefault;
+use rolluncom\dic\Example\SimpleDependency;
+use rolluncom\dic\Example\Inheritance;
+use rolluncom\dic\Example\SimpleDependencyInit;
+use rolluncom\dic\InsideConstruct;
 
 class InsideConstructTest extends \PHPUnit_Framework_TestCase
 {

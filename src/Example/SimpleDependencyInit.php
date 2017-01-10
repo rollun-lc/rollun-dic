@@ -6,10 +6,9 @@
  * Time: 12:18 PM
  */
 
-namespace zaboy\dic\Example;
+namespace rolluncom\dic\Example;
 
-
-use zaboy\dic\InsideConstruct;
+use rolluncom\dic\InsideConstruct;
 
 class SimpleDependencyInit
 {

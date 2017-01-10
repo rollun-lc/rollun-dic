@@ -6,9 +6,9 @@
  * Time: 2:13 PM
  */
 
-namespace zaboy\dic\Example;
+namespace rolluncom\dic\Example;
 
-use zaboy\dic\InsideConstruct;
+use rolluncom\dic\InsideConstruct;
 
 class InheritanceSimpleDependency extends SimpleDependency
 {

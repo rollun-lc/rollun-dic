@@ -21,24 +21,24 @@
     "zendframework/zend-diactoros": "^1.1",
     "zendframework/zend-config": "^2.6",
     "zendframework/zend-stdlib": "^3",
-    "avz-cmf/zaboy-installer": "^2.1"
+    "rollun-com/installer": "master"
   },
   "require-dev": {
     "phpunit/phpunit": "^4.0"
   },
   "autoload": {
     "psr-4": {
-      "zaboy\\dic\\": "src/"
+      "rolluncom\\dic\\": "src/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "zaboy\\test\\dic\\": "tests/src"
+      "rolluncom\\test\\dic\\": "tests/src"
     }
   },
   "scripts": {
-    "lib-install": "zaboy\\installer\\Command::install",
-    "lib-uninstall": "zaboy\\installer\\Command::uninstall",
-    "lib-reinstall": "zaboy\\installer\\Command::reinstall"
+    "lib-install": "rolluncom\\installer\\Command::install",
+    "lib-uninstall": "rolluncom\\installer\\Command::uninstall",
+    "lib-reinstall": "rolluncom\\installer\\Command::reinstall"
   }
 }
