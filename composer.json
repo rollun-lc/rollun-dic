@@ -1,6 +1,6 @@
 {
-  "name": "avz-cmf/zaboy-skeleton",
-  "description": "zaboy skeleton app",
+  "name": "rollun-com/dic",
+  "description": "InsideConstruct",
   "minimum-stability": "stable",
   "license": "proprietary",
   "authors": [
@@ -28,12 +28,12 @@
   },
   "autoload": {
     "psr-4": {
-      "zaboy\\skeleton\\": "src/"
+      "zaboy\\dic\\": "src/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "zaboy\\test\\skeleton\\": "tests/src"
+      "zaboy\\test\\dic\\": "tests/src"
     }
   },
   "scripts": {
