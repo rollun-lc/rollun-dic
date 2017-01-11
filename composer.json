@@ -3,6 +3,7 @@
   "description": "Skeleton for app or lib",
   "minimum-stability": "stable",
   "license": "proprietary",
+  "type": "project",
   "authors": [
     {
       "name": "avz-cmf",
