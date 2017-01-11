@@ -7,6 +7,6 @@
 
 Каркас для создания приложений. 
 
-* [Стандарты](docs/Standarts.md)
+* [Стандарты](https://github.com/rollun-com/rollun-skeleton/blob/master/docs/Standarts.md)
 
 * [Quickstart](https://github.com/avz-cmf/saas/blob/master/docs/Quickstart.md)

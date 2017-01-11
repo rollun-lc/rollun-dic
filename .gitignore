@@ -13,6 +13,7 @@ composer.phar
 # User-specific stuff:
 .idea/workspace.xml
 .idea/*
+.idea/vcs.xml
 
 # Sensitive or high-churn files:
 .idea/dataSources/

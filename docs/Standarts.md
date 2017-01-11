@@ -7,7 +7,7 @@
 Каждое приложение которое требует спецефичиской настройки должно предоставить сооствествующий классы, 
 реализующеее `zaboy\installer\Install\InstallerInterface` интерфейс для ее проведения.
 
-Блдее детально о [zaboy-installer](https://github.com/avz-cmf/zaboy-installer).
+Блдее детально о [zaboy-installer](https://github.com/rollun-com/rollun-installer).
 
 ## Стандарт кодирование
 
