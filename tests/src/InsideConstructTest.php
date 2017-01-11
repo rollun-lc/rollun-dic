@@ -6,15 +6,15 @@
  * Time: 3:16 PM
  */
 
-namespace rolluncom\test\dic;
+namespace rollun\test\dic;
 
 use Interop\Container\ContainerInterface;
-use rolluncom\dic\Example\InheritanceSimpleDependency;
-use rolluncom\dic\Example\SettersDefault;
-use rolluncom\dic\Example\SimpleDependency;
-use rolluncom\dic\Example\Inheritance;
-use rolluncom\dic\Example\SimpleDependencyInit;
-use rolluncom\dic\InsideConstruct;
+use rollun\dic\Example\InheritanceSimpleDependency;
+use rollun\dic\Example\SettersDefault;
+use rollun\dic\Example\SimpleDependency;
+use rollun\dic\Example\Inheritance;
+use rollun\dic\Example\SimpleDependencyInit;
+use rollun\dic\InsideConstruct;
 
 class InsideConstructTest extends \PHPUnit_Framework_TestCase
 {

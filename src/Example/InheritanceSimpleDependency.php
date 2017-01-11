@@ -6,9 +6,9 @@
  * Time: 2:13 PM
  */
 
-namespace rolluncom\dic\Example;
+namespace rollun\dic\Example;
 
-use rolluncom\dic\InsideConstruct;
+use rollun\dic\InsideConstruct;
 
 class InheritanceSimpleDependency extends SimpleDependency
 {

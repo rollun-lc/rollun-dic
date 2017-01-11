@@ -7,7 +7,7 @@
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  */
 
-namespace rolluncom\dic;
+namespace rollun\dic;
 
 use Interop\Container\ContainerInterface;
 

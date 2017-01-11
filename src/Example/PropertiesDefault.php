@@ -7,9 +7,9 @@
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  */
 
-namespace rolluncom\dic\Example;
+namespace rollun\dic\Example;
 
-use rolluncom\dic\InsideConstruct;
+use rollun\dic\InsideConstruct;
 
 class PropertiesDefault
 {
