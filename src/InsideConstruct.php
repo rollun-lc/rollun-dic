@@ -199,8 +199,8 @@ class InsideConstruct
         }
         //gen call method signature with params
         $params = trim($params, ',');
-        $callRefParConstruct = '$refParentConstruct->invoke($object,' . $params . ');';
-        eval($callRefParConstruct);
+        $closure = $refParentConstruct->getClosure($object);
+        eval('$closure('. $params.');');
         return $result;
     }
 

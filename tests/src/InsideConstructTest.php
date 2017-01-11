@@ -14,6 +14,7 @@ use rollun\dic\Example\SettersDefault;
 use rollun\dic\Example\SimpleDependency;
 use rollun\dic\Example\Inheritance;
 use rollun\dic\Example\SimpleDependencyInit;
+use rollun\dic\Example\StaticDepSun;
 use rollun\dic\InsideConstruct;
 
 class InsideConstructTest extends \PHPUnit_Framework_TestCase
@@ -43,6 +44,18 @@ class InsideConstructTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('simpleStringA', $tested->getSimpleStringA());
         $this->assertEquals(2.4, $tested->simpleNumericB);
         $this->assertEquals([0 => 'simpleArrayC'], $tested->getSimpleArrayC());
+    }
+
+    public function testInitServicesStaticDependencyInit()
+    {
+        $this->container->method('has')
+            ->will($this->returnValue(false));
+        $tested = new StaticDepSun();
+
+        $this->assertEquals('simpleStringA', $tested->getSimpleStringA());
+        $this->assertEquals(2.4, $tested->simpleNumericB);
+        $this->assertEquals([0 => 'simpleArrayC'], $tested->getSimpleArrayC());
+        $this->assertEquals(StaticDepSun::CONST_VAL, $tested->getConstStatic());
     }
 
     //==========================================================================
