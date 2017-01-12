@@ -5,9 +5,9 @@
 [pds/skeleton](https://github.com/php-pds/skeleton/blob/1.x/README.md )
 
 Каждое приложение которое требует спецефичиской настройки должно предоставить сооствествующий классы, 
-реализующеее `zaboy\installer\Install\InstallerInterface` интерфейс для ее проведения.
+реализующеее `rollun\installer\Install\InstallerInterface` интерфейс для ее проведения.
 
-Более детально о [zaboy-installer](https://github.com/rollun-com/rollun-installer).
+Более детально о [rollun-installer](https://github.com/rollun-com/rollun-installer).
 
 ## Стандарт кодирование
 
