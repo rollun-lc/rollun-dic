@@ -189,7 +189,7 @@ class InsideConstruct
         /** @var \ReflectionParameter $refParam */
         foreach ($refParams as $refParam) {
             $paramName = $refParam->getName();
-            if (!isset($loadParams[$paramName])) {
+            if (!in_array($paramName, array_keys($loadParams))) {
                 $paramValue = self::getParamValue($paramName, $refParam);
             } else {
                 $paramValue = $loadParams[$paramName];
