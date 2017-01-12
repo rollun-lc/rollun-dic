@@ -263,7 +263,7 @@ class InsideConstruct
         }
         //if has parent add he service
         if ($refParentClass) {
-            $parentResult = self::parentService($loadParams, $refParams, $object, $refParentConstruct);
+            $parentResult = self::parentService($loadParams, $refParentParams, $object, $refParentConstruct);
             $result = array_merge($result, $parentResult);
         }
 
