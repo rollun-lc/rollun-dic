@@ -5,9 +5,12 @@
 [pds/skeleton](https://github.com/php-pds/skeleton/blob/1.x/README.md )
 
 Каждое приложение которое требует спецефичиской настройки должно предоставить сооствествующий классы, 
-реализующеее `zaboy\installer\Install\InstallerInterface` интерфейс для ее проведения.
+реализующеее `rollun\installer\Install\InstallerInterface` интерфейс для ее проведения.
 
-Более детально о [zaboy-installer](https://github.com/rollun-com/rollun-installer).
+Более детально о [rollun-installer](https://github.com/rollun-com/rollun-installer).
+
+Так же существует дериктория data, которая может содержать в себе требуемые временные файлы.
+Напримре логи.
 
 ## Стандарт кодирование
 
@@ -69,6 +72,18 @@
  * `DB_USER` - Имя пользователя для соединения с DB.
  * `DB_PASS` - Пароль для соединения с DB.
  
+ ### Конфиги expressive
+ 
+ * dependencies - для указания глобальных сервисов.
+ 
+ * errorhandler - обработчик ошибок **Whoops** работает только в `dev` окружении.
+ 
+ * middleware-pipeline - конфиг для создания middleware-pipeline без фабрики и с возможностью укзаать приоритет выполения.
+ 
+ * routes - конфиг для указания routes приложения. 
+ 
+ * zend-expressive - конфиги для expressive.
+ 
  ###Префексы конфигфайлов
  
  Все конфиг файлы должны иметь префикс в виде имени библиотеки либо его сокращения.
@@ -120,3 +135,5 @@
     Пример:
     * confirm_flag
     * active_flag
+    
+    
