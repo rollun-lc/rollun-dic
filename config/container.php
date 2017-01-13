@@ -8,11 +8,19 @@
 
 use Zend\ServiceManager\ServiceManager;
 use Zend\ServiceManager\Config;
+use Zend\Stdlib\ArrayUtils;
 
-// Create a ServiceManager from service_manager config and register the merged config as a service
-$config = include __DIR__ . '/config.php';
-//$configObject = new Config(isset($config['services']) ? $config['services'] : []);
-$sm = new ServiceManager(isset($config['services']) ? $config['services'] : []);
-$sm->setService('config', $config);
-// Return the fully configured ServiceManager
-return $sm;
+// Load configuration
+$config = require __DIR__ . '/config.php';
+
+$service = isset($config['services']) ? $config['services'] : [];
+$service = isset($config['dependencies']) ? ArrayUtils::merge($service, $config['dependencies']) : $service;
+
+// Build container
+$container = new ServiceManager();
+(new Config($service))->configureServiceManager($container);
+
+// Inject config
+$container->setService('config', $config);
+
+return $container;
