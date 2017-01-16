@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'debug' => false,
+    'debug' => constant('APP_ENV') != 'dev' ? false : true,
 
     'config_cache_enabled' => false,
 
