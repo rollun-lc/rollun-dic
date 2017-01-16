@@ -10,6 +10,7 @@ return [
              * if you use rollun-datastore uncomment this
              \rollun\datastore\Pipe\RestRql::class => \rollun\datastore\Pipe\Factory\RestRqlFactory::class
              */
+            \rollun\skeleton\Api\HelloAction::class => \rollun\skeleton\Api\HelloActionFactory::class
         ],
     ],
 
@@ -23,5 +24,11 @@ return [
             'allowed_methods' => ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
         ],
         */
+        [
+            'name' => 'home',
+            'path' => '/[{name}]',
+            'middleware' => \rollun\skeleton\Api\HelloAction::class,
+            'allowed_methods' => ['GET'],
+        ],
     ],
 ];
