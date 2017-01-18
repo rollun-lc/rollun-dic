@@ -1,6 +1,6 @@
 <?php
 
-return  constant('APP_ENV') == 'dev' ?  [
+return [
     'debug' => true,
     'config_cache_enabled' => false,
 
@@ -21,4 +21,4 @@ return  constant('APP_ENV') == 'dev' ?  [
             'ajax_only'  => true,
         ],
     ],
-] : [];
+];

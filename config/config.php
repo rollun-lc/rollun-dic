@@ -26,7 +26,13 @@ if (is_file($cachedConfigFile)) {
     $config = include $cachedConfigFile;
 } else {
     // Load configuration from autoload path
+
     foreach (Glob::glob('config/autoload/{{,*.}global,{,*.}local}.php', Glob::GLOB_BRACE) as $file) {
+        $config = ArrayUtils::merge($config, include $file);
+    }
+
+    $env = (constant("APP_ENV")) ?: 'dev';
+    foreach (Glob::glob('config/autoload/{{,*.}global,{,*.}local}.' . $env . '.php', Glob::GLOB_BRACE) as $file) {
         $config = ArrayUtils::merge($config, include $file);
     }
 
