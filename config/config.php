@@ -31,11 +31,6 @@ if (is_file($cachedConfigFile)) {
         $config = ArrayUtils::merge($config, include $file);
     }
 
-    $env = (constant("APP_ENV")) ?: 'dev';
-    foreach (Glob::glob('config/autoload/{{,*.}global,{,*.}local}.' . $env . '.php', Glob::GLOB_BRACE) as $file) {
-        $config = ArrayUtils::merge($config, include $file);
-    }
-
     // Cache config if enabled
     if (isset($config['config_cache_enabled']) && $config['config_cache_enabled'] === true) {
         file_put_contents($cachedConfigFile, '<?php return ' . var_export($config, true) . ';');

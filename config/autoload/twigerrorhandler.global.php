@@ -6,11 +6,11 @@
  * Time: 14:08
  */
 
-return [
+return constant('APP_ENV') === 'prod' ? [
     'dependencies' => [
         'factories' => [
             'Zend\Expressive\FinalHandler' =>
                 Zend\Expressive\Container\TemplatedErrorHandlerFactory::class,
         ],
     ],
-];
+] : [];
