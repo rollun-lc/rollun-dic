@@ -27,22 +27,40 @@ class HelloActionTest extends HelloActionTestProvider
      * @param $param
      * @param $env
      * @param $response
-     * @dataProvider providerHtmlQuery()
-     *
+     * @param $accept
+     * @dataProvider providerDevQuery()
      */
-    public function testHtmlQuery($param, $env, $response, $accept)
+    public function testDevQuery($param, $env, $response, $accept)
     {
-        if (constant("APP_ENV") === $env) {
+        $uri = "http://" . constant("HOST") . "/" . $param;
+        $this->client->setUri($uri);
+        $this->client->setHeaders([
+            'Accept' => $accept,
+            'APP_ENV' => 'dev'
+        ]);
+        $resp = $this->client->send();
+        $body = $resp->getBody();
+        $this->assertTrue(preg_match('/' . quotemeta($response) . '/', $body) == 1);
+    }
 
-            $uri = "http://" . constant("HOST") . "/" . $param;
-            $this->client->setUri($uri);
-            $this->client->setHeaders([
-                'Accept' => $accept
-            ]);
-            $resp = $this->client->send();
-            $body = $resp->getBody();
-            $this->assertTrue(preg_match('/' . quotemeta($response) . '/', $body) == 1);
-        }
+    /**
+     * @param $param
+     * @param $env
+     * @param $response
+     * @param $accept
+     * @dataProvider providerProdQuery()
+     */
+    public function testProdQuery($param, $env, $response, $accept)
+    {
+        $uri = "http://" . constant("HOST") . "/" . $param;
+        $this->client->setUri($uri);
+        $this->client->setHeaders([
+            'Accept' => $accept,
+            'APP_ENV' => "prod"
+        ]);
+        $resp = $this->client->send();
+        $body = $resp->getBody();
+        $this->assertTrue(preg_match('/' . quotemeta($response) . '/', $body) == 1);
     }
 }
 

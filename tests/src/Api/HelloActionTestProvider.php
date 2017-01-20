@@ -15,7 +15,7 @@ class HelloActionTestProvider extends PHPUnit_Framework_TestCase
     /**
      * @return array
      */
-    public function providerHtmlQuery()
+    public function providerDevQuery()
     {
         return [
             [
@@ -35,6 +35,24 @@ class HelloActionTestProvider extends PHPUnit_Framework_TestCase
             ],
             [
                 "error", "dev", 'Exception: Exception by string: [dev] Hello error! in file', 'application/json'
+            ]
+        ];
+    }
+
+    public function providerProdQuery()
+    {
+        return [
+            [
+                "world", "prod", "[prod] Hello world!", 'text/html'
+            ],
+            [
+                "", "prod", "[prod] Hello !", 'text/html'
+            ],
+            [
+                "world", "prod", "[prod] Hello world!", 'application/json'
+            ],
+            [
+                "", "prod", "[prod] Hello !", 'application/json'
             ],
             [
                 "error", "prod", 'We encountered a 500 Internal Server Error error.', 'text/html'

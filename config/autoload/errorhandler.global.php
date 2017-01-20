@@ -1,6 +1,6 @@
 <?php
 
-return  constant('APP_ENV') == 'dev' ?  [
+return constant('APP_ENV') === 'dev' ? [
     'debug' => true,
     'config_cache_enabled' => false,
 

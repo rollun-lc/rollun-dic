@@ -6,7 +6,7 @@
  * Time: 14:08
  */
 
-return constant("APP_ENV") != 'dev' ? [
+return constant('APP_ENV') === 'prod' ? [
     'dependencies' => [
         'factories' => [
             'Zend\Expressive\FinalHandler' =>
