@@ -8,25 +8,45 @@
 
 namespace rollun\skeleton\Middleware;
 
-use Interop\Http\Middleware\DelegateInterface;
-use Interop\Http\Middleware\MiddlewareInterface;
-use Psr\Http\Message\RequestInterface;
+use Zend\Stratigility\MiddlewareInterface;
+
 use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface as Request;
+use Zend\Stratigility\MiddlewareInterface;
 
 class CronExceptionMiddleware implements MiddlewareInterface
 {
 
     /**
-     * Process an incoming client or server request and return a response,
-     * optionally delegating to the next middleware component to create the response.
+     * Process an incoming request and/or response.
      *
-     * @param RequestInterface $request
-     * @param DelegateInterface $delegate
-     * @return ResponseInterface
+     * Accepts a server-side request and a response instance, and does
+     * something with them.
+     *
+     * If the response is not complete and/or further processing would not
+     * interfere with the work done in the middleware, or if the middleware
+     * wants to delegate to another process, it can use the `$out` callable
+     * if present.
+     *
+     * If the middleware does not return a value, execution of the current
+     * request is considered complete, and the response instance provided will
+     * be considered the response to return.
+     *
+     * Alternately, the middleware may return a response instance.
+     *
+     * Often, middleware will `return $out();`, with the assumption that a
+     * later middleware will return a response.
+     *
+     * @param Request $request
+     * @param ResponseInterface $response
+     * @param null|callable $out
+     * @return null|ResponseInterface
      * @throws \Exception
      */
-    public function process(RequestInterface $request, DelegateInterface $delegate)
+    public function __invoke(Request $request, ResponseInterface $response, callable $out = null)
     {
-        throw new \Exception("If use /api/cron route, you mast usage rollun-com/rollun-callback lib with cronMiddleware!");
+        throw new \Exception(
+            "If use /api/cron route, you mast usage rollun-com/rollun-callback lib with cronMiddleware!"
+        );
     }
 }
