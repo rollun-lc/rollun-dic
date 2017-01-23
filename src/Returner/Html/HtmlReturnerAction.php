@@ -2,20 +2,33 @@
 /**
  * Created by PhpStorm.
  * User: root
- * Date: 18.01.17
- * Time: 14:19
+ * Date: 23.01.17
+ * Time: 18:02
  */
 
-namespace rollun\skeleton\Middleware;
+namespace rollun\skeleton\Returner\Html;
 
-use Zend\Stratigility\MiddlewareInterface;
-
-use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
+use Zend\Diactoros\Response\HtmlResponse;
+use Zend\Expressive\Template\TemplateRendererInterface;
 use Zend\Stratigility\MiddlewareInterface;
 
-class CronExceptionMiddleware implements MiddlewareInterface
+class HtmlReturnerAction implements MiddlewareInterface
 {
+    /**
+     * @var TemplateRendererInterface
+     */
+    protected $templateRenderer;
+
+    /**
+     * HelloAction constructor.
+     * @param TemplateRendererInterface $templateRenderer
+     */
+    public function __construct(TemplateRendererInterface $templateRenderer)
+    {
+        $this->templateRenderer = $templateRenderer;
+    }
 
     /**
      * Process an incoming request and/or response.
@@ -38,15 +51,14 @@ class CronExceptionMiddleware implements MiddlewareInterface
      * later middleware will return a response.
      *
      * @param Request $request
-     * @param ResponseInterface $response
+     * @param Response $response
      * @param null|callable $out
-     * @return null|ResponseInterface
-     * @throws \Exception
+     * @return null|Response
      */
-    public function __invoke(Request $request, ResponseInterface $response, callable $out = null)
+    public function __invoke(Request $request, Response $response, callable $out = null)
     {
-        throw new \Exception(
-            "If use /api/cron route, you mast usage rollun-com/rollun-callback lib with cronMiddleware!"
-        );
+        $data = $request->getAttribute('Response-Data');
+        $name = $request->getAttribute('Template-Name');
+        return new HtmlResponse($this->templateRenderer->render($name, $data));
     }
 }

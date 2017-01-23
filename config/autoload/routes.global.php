@@ -10,8 +10,7 @@ return [
              * if you use rollun-datastore uncomment this
              \rollun\datastore\Pipe\RestRql::class => \rollun\datastore\Pipe\Factory\RestRqlFactory::class
              */
-            \rollun\skeleton\Api\HelloAction::class => \rollun\skeleton\Api\HelloActionFactory::class
-        ],
+            ],
     ],
 
     'routes' => [
@@ -27,13 +26,13 @@ return [
         [
             'name' => 'interrupt.cron',
             'path' => '/interrupt/cron',
-            'middleware' => \rollun\skeleton\Middleware\CronExceptionMiddleware::class,
+            'middleware' => \rollun\skeleton\Api\CronExceptionMiddleware::class,
             'allowed_methods' => ['GET', 'POST'],
         ],
         [
             'name' => 'home',
             'path' => '/[{name}]',
-            'middleware' => \rollun\skeleton\Api\HelloAction::class,
+            'middleware' => 'home',
             'allowed_methods' => ['GET'],
         ],
     ],

@@ -6,7 +6,7 @@
  * Time: 12:27
  */
 
-namespace rollun\skeleton\Api;
+namespace rollun\skeleton\Returner\Html;
 
 use Interop\Container\ContainerInterface;
 use Interop\Container\Exception\ContainerException;
@@ -18,7 +18,7 @@ use Zend\ServiceManager\Exception\ServiceNotFoundException;
 use Zend\ServiceManager\Factory\FactoryInterface;
 use Zend\Stratigility\MiddlewareInterface;
 
-class HelloActionFactory implements FactoryInterface
+class HtmlReturnerFactory implements FactoryInterface
 {
 
     /**
@@ -33,8 +33,8 @@ class HelloActionFactory implements FactoryInterface
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
         if ($container->has(TemplateRendererInterface::class)) {
-            return new HelloAction($container->get(TemplateRendererInterface::class));
+            return new HtmlReturnerAction($container->get(TemplateRendererInterface::class));
         }
-        //throw new \Exception(TemplateRendererInterface::class . " not fount in container");
+        throw new \Exception(TemplateRendererInterface::class . " not fount in container");
     }
 }

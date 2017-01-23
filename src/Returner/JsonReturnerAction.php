@@ -2,20 +2,18 @@
 /**
  * Created by PhpStorm.
  * User: root
- * Date: 16.01.17
- * Time: 12:26
+ * Date: 23.01.17
+ * Time: 18:06
  */
 
-namespace rollun\skeleton\Api;
+namespace rollun\skeleton\Returner;
 
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
-use Zend\Diactoros\Response\HtmlResponse;
 use Zend\Diactoros\Response\JsonResponse;
-use Zend\Expressive\Template\TemplateRendererInterface;
 use Zend\Stratigility\MiddlewareInterface;
 
-class HelloAction implements MiddlewareInterface
+class JsonReturnerAction implements MiddlewareInterface
 {
 
     /**
@@ -42,20 +40,10 @@ class HelloAction implements MiddlewareInterface
      * @param Response $response
      * @param null|callable $out
      * @return null|Response
-     * @throws \Exception
      */
     public function __invoke(Request $request, Response $response, callable $out = null)
     {
-        $name = $request->getAttribute('name');
-        $str = "[" . constant('APP_ENV') . "] Hello $name!";
-
-        if ($name === "error") {
-            throw new \Exception("Exception by string: $str");
-        }
-        $request = $request->withAttribute('Response-Data', ['str' => $str]);
-        if (isset($out)) {
-            return $out($request, $response);
-        }
-        return $response;
+        $data = $request->getAttribute('Response-Data');
+        return new JsonResponse($data);
     }
 }

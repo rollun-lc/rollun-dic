@@ -2,20 +2,17 @@
 /**
  * Created by PhpStorm.
  * User: root
- * Date: 16.01.17
- * Time: 12:26
+ * Date: 18.01.17
+ * Time: 14:19
  */
 
 namespace rollun\skeleton\Api;
 
-use Psr\Http\Message\ResponseInterface as Response;
-use Psr\Http\Message\ServerRequestInterface as Request;
-use Zend\Diactoros\Response\HtmlResponse;
-use Zend\Diactoros\Response\JsonResponse;
-use Zend\Expressive\Template\TemplateRendererInterface;
 use Zend\Stratigility\MiddlewareInterface;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface as Request;
 
-class HelloAction implements MiddlewareInterface
+class CronExceptionMiddleware implements MiddlewareInterface
 {
 
     /**
@@ -39,23 +36,15 @@ class HelloAction implements MiddlewareInterface
      * later middleware will return a response.
      *
      * @param Request $request
-     * @param Response $response
+     * @param ResponseInterface $response
      * @param null|callable $out
-     * @return null|Response
+     * @return null|ResponseInterface
      * @throws \Exception
      */
-    public function __invoke(Request $request, Response $response, callable $out = null)
+    public function __invoke(Request $request, ResponseInterface $response, callable $out = null)
     {
-        $name = $request->getAttribute('name');
-        $str = "[" . constant('APP_ENV') . "] Hello $name!";
-
-        if ($name === "error") {
-            throw new \Exception("Exception by string: $str");
-        }
-        $request = $request->withAttribute('Response-Data', ['str' => $str]);
-        if (isset($out)) {
-            return $out($request, $response);
-        }
-        return $response;
+        throw new \Exception(
+            "If use /api/cron route, you mast usage rollun-com/rollun-callback lib with cronMiddleware!"
+        );
     }
 }
