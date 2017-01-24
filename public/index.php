@@ -17,6 +17,7 @@ if (constant('APP_ENV') === 'dev') {
     error_reporting(E_ALL);
     ini_set('display_errors', 1);
 }
+//todo:: add remove error
 
 /** @var \Interop\Container\ContainerInterface $container */
 $container = require 'config/container.php';
