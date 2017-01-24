@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "9069f85c0240265fb48a54f0e7cb7168",
-    "content-hash": "dd76b69a302bdca54a3d723c7cd2421e",
+    "hash": "6f9922376becb2eea43dfd11a863db35",
+    "content-hash": "800983991599472b8a54af8d0be91304",
     "packages": [
         {
             "name": "composer/ca-bundle",
@@ -1537,16 +1537,16 @@
         },
         {
             "name": "rollun-com/rollun-utils",
-            "version": "1.0.2",
+            "version": "dev-develop",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rollun-com/rollun-utils.git",
-                "reference": "5da04cb4bfa34e03f62d9be7d840843bdd870f55"
+                "reference": "cbad2b77874f168eb8744148eb7c6b1c061566bb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rollun-com/rollun-utils/zipball/5da04cb4bfa34e03f62d9be7d840843bdd870f55",
-                "reference": "5da04cb4bfa34e03f62d9be7d840843bdd870f55",
+                "url": "https://api.github.com/repos/rollun-com/rollun-utils/zipball/cbad2b77874f168eb8744148eb7c6b1c061566bb",
+                "reference": "cbad2b77874f168eb8744148eb7c6b1c061566bb",
                 "shasum": ""
             },
             "require": {
@@ -1596,7 +1596,7 @@
                 "php",
                 "rest"
             ],
-            "time": "2017-01-23 16:01:11"
+            "time": "2017-01-24 12:13:37"
         },
         {
             "name": "seld/cli-prompt",
@@ -2815,16 +2815,16 @@
         },
         {
             "name": "zendframework/zend-stratigility",
-            "version": "1.3.2",
+            "version": "1.3.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/zend-stratigility.git",
-                "reference": "ffbf29ceb92a9223b8383ea2b021b242591141d2"
+                "reference": "2c4120d2af215c8261a36e0bc3aa8e179e05e148"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/zend-stratigility/zipball/ffbf29ceb92a9223b8383ea2b021b242591141d2",
-                "reference": "ffbf29ceb92a9223b8383ea2b021b242591141d2",
+                "url": "https://api.github.com/repos/zendframework/zend-stratigility/zipball/2c4120d2af215c8261a36e0bc3aa8e179e05e148",
+                "reference": "2c4120d2af215c8261a36e0bc3aa8e179e05e148",
                 "shasum": ""
             },
             "require": {
@@ -2864,7 +2864,7 @@
                 "middleware",
                 "psr-7"
             ],
-            "time": "2017-01-05 22:22:10"
+            "time": "2017-01-23 22:59:03"
         },
         {
             "name": "zendframework/zend-uri",
@@ -4240,7 +4240,8 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "roave/security-advisories": 20,
-        "mindplay/jsonfreeze": 20
+        "mindplay/jsonfreeze": 20,
+        "rollun-com/rollun-utils": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
