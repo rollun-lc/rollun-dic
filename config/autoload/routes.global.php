@@ -29,11 +29,11 @@ return [
             'middleware' => \rollun\skeleton\Api\CronExceptionMiddleware::class,
             'allowed_methods' => ['GET', 'POST'],
         ],
-        /*[
+        [
             'name' => 'home-page',
             'path' => '/[{name}]',
             'middleware' => 'home-service',
             'allowed_methods' => ['GET'],
-        ],*/
+        ],
     ],
 ];
