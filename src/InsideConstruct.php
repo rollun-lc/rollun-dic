@@ -30,7 +30,7 @@ class InsideConstruct
     /**
      * @return array
      */
-    public static function setConstructParams()
+    public static function setConstructParams(array $setService = [])
     {
         $result = [];
 
@@ -48,7 +48,15 @@ class InsideConstruct
         //$reflectionClass->getMethod('__construct');
         InsideConstruct::checkConstruct(($refConstruct = $reflectionClass->getConstructor()));
 
+        //add service who not set in constructor
         $refParams = $refConstruct->getParameters();
+        foreach ($setService as $paramName => $service) {
+            if (static::$container->has($service)) {
+                $paramValue = static::$container->get($service);
+                $result[$paramName] = $paramValue;
+                InsideConstruct::setValue($reflectionClass, $paramName, $paramValue, $object);
+            }
+        }
         // $refParams array of ReflectionParameter
         foreach ($refParams as $refParam) {
             /* @var $refParam \ReflectionParameter */
@@ -206,6 +214,7 @@ class InsideConstruct
 
     /**
      * @param array $mapping
+     * @param array $setService
      * @return array
      */
     public static function init(array $mapping = [])

@@ -14,6 +14,7 @@ use rollun\dic\Example\SettersDefault;
 use rollun\dic\Example\SimpleDependency;
 use rollun\dic\Example\Inheritance;
 use rollun\dic\Example\SimpleDependencyInit;
+use rollun\dic\Example\SimpleWithSeter;
 use rollun\dic\Example\StaticDepSun;
 use rollun\dic\InsideConstruct;
 
@@ -33,6 +34,28 @@ class InsideConstructTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('simpleStringA', $tested->getSimpleStringA());
         $this->assertEquals(2.4, $tested->simpleNumericB);
         $this->assertEquals([0 => 'simpleArrayC'], $tested->getSimpleArrayC());
+    }
+
+    public function testInitServicesSimpleDependencyWithSeter()
+    {
+        $mapHas = [
+            ['propA', true],
+            ['propB', true],
+        ];
+        $this->container->method('has')
+            ->will($this->returnValueMap($mapHas));
+
+        $mapGet = [
+            ['propA', 'PropA value'],
+            ['propB', 'PropB value'],
+        ];
+
+        $this->container->method('get')
+            ->will($this->returnValueMap($mapGet));
+        $tested = new SimpleWithSeter();
+
+        $this->assertEquals('PropA value', $tested->getPropA());
+        $this->assertEquals('PropB value', $tested->getSetterProp());
     }
 
     public function testInitServicesSimpleDependencyInit()

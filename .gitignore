@@ -1,6 +1,8 @@
 # Created by .ignore support plugin (hsz.mobi)
 ### Composer template
 composer.phar
+nbproject/
+temp/
 /vendor/
 
 # Commit your application's lock file http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file
@@ -11,8 +13,10 @@ composer.phar
 # Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
 
 # User-specific stuff:
+phpunit.xml.dist
 .idea/workspace.xml
 .idea/*
+.idea/vcs.xml
 
 # Sensitive or high-churn files:
 .idea/dataSources/
@@ -22,7 +26,6 @@ composer.phar
 .idea/sqlDataSources.xml
 .idea/dynamic.xml
 .idea/uiDesigner.xml
-.idea/vcs.xml
 
 # Gradle:
 .idea/gradle.xml
