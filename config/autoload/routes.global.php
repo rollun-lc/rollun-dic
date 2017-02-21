@@ -29,9 +29,9 @@ return [
          ],
          */
         [
-            'name' => 'interrupt.cron',
-            'path' => '/interrupt/cron',
-            'middleware' => \rollun\skeleton\Api\CronExceptionMiddleware::class,
+            'name' => 'webhook',
+            'path' => '/webhook[/{resourceName}]',
+            'middleware' => 'webhook',
             'allowed_methods' => ['GET', 'POST'],
         ],
         [
@@ -40,5 +40,6 @@ return [
             'middleware' => 'home-service',
             'allowed_methods' => ['GET'],
         ],
+
     ],
 ];

@@ -14,9 +14,18 @@
       "email": "it.proffesor02@gmail.com"
     }
   ],
+  "repositories": [
+    {
+      "type": "git",
+      "url": "https://github.com/rollun-com/rollun-callback"
+    },
+    {
+      "type": "git",
+      "url": "https://github.com/rollun-com/rollun-permission"
+    }
+  ],
   "require": {
     "php": "^5.6 || ^7.0",
-
     "roave/security-advisories": "dev-master",
     "zendframework/zend-expressive": "^1.0",
     "zendframework/zend-expressive-helpers": "^2.0",
@@ -29,6 +38,10 @@
     "rollun-com/rollun-installer": "^1.0",
     "mindplay/jsonfreeze": "0.3.3.x-dev",
     "rollun-com/rollun-actionrender": "^2.0",
+    "rollun-com/rollun-datastore": "^2.0",
+    "rollun-com/rollun-callback": "^2.0",
+    "rollun-com/rollun-api": "dev-develop",
+    "rollun-com/rollun-permission": "dev-develop",
     "zendframework/zend-http": "^2.5"
   },
   "require-dev": {
