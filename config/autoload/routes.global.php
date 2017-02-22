@@ -35,6 +35,30 @@ return [
             'allowed_methods' => ['GET', 'POST'],
         ],
         [
+            'name' => 'login',
+            'path' => '/login',
+            'middleware' => 'authPipe',
+            'allowed_methods' => ['GET', 'POST'],
+        ],
+        [
+            'name' => 'logout',
+            'path' => '/logout',
+            'middleware' => \rollun\permission\Auth\Middleware\LogoutAction::class,
+            'allowed_methods' => ['GET', 'POST'],
+        ],
+        [
+            'name' => 'base-test-page',
+            'path' => '/base/test-page/[{name}]',
+            'middleware' => 'base-service',
+            'allowed_methods' => ['GET', 'POST'],
+        ],
+        [
+            'name' => 'user',
+            'path' => '/user',
+            'middleware' => 'user-service',
+            'allowed_methods' => ['GET', 'POST'],
+        ],
+        [
             'name' => 'home-page',
             'path' => '/[{name}]',
             'middleware' => 'home-service',

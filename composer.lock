@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "c8d61a42bca2ca0d1980fc67d25c7c7a",
-    "content-hash": "662cf03f18e1fde5249cef67b4496052",
+    "hash": "44dc505b8d0b42bcc332a0b0f6c3a80e",
+    "content-hash": "546fe9090a87ca2b605f715bf40d8164",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
@@ -2503,12 +2503,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/rollun-com/rollun-api.git",
-                "reference": "c53183b770ce4e080fdbf5aaff9d7ba61fd801bb"
+                "reference": "76b9e53f3f0930974b3acfcc7b048416c4bc32ac"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rollun-com/rollun-api/zipball/c53183b770ce4e080fdbf5aaff9d7ba61fd801bb",
-                "reference": "c53183b770ce4e080fdbf5aaff9d7ba61fd801bb",
+                "url": "https://api.github.com/repos/rollun-com/rollun-api/zipball/76b9e53f3f0930974b3acfcc7b048416c4bc32ac",
+                "reference": "76b9e53f3f0930974b3acfcc7b048416c4bc32ac",
                 "shasum": ""
             },
             "require": {
@@ -2554,14 +2554,14 @@
                 "php",
                 "rest"
             ],
-            "time": "2017-02-21 12:31:43"
+            "time": "2017-02-21 16:24:27"
         },
         {
             "name": "rollun-com/rollun-callback",
             "version": "2.1.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/rollun-com/rollun-callback",
+                "url": "https://github.com/rollun-com/rollun-callback.git",
                 "reference": "d2dd6a1cc86a92c073961a2ff98fb848f967a40e"
             },
             "require": {
@@ -2866,8 +2866,14 @@
             "version": "dev-develop",
             "source": {
                 "type": "git",
-                "url": "https://github.com/rollun-com/rollun-permission",
+                "url": "https://github.com/rollun-com/rollun-permission.git",
                 "reference": "595b1800eb4428ac0cba8b93ca1046aa8fe5111f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/rollun-com/rollun-permission/zipball/595b1800eb4428ac0cba8b93ca1046aa8fe5111f",
+                "reference": "595b1800eb4428ac0cba8b93ca1046aa8fe5111f",
+                "shasum": ""
             },
             "require": {
                 "google/apiclient": "^2.0",
@@ -2905,25 +2911,7 @@
                     "rollun\\permission\\": "src/"
                 }
             },
-            "autoload-dev": {
-                "psr-4": {
-                    "rollun\\test\\permission\\": "tests/src"
-                }
-            },
-            "scripts": {
-                "serve": [
-                    "php -S 127.0.0.1:8080 -t public public/index.php"
-                ],
-                "lib-install": [
-                    "rollun\\installer\\Command::install"
-                ],
-                "lib-uninstall": [
-                    "rollun\\installer\\Command::uninstall"
-                ],
-                "lib-reinstall": [
-                    "rollun\\installer\\Command::reinstall"
-                ]
-            },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "proprietary"
             ],

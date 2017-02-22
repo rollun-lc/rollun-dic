@@ -14,16 +14,7 @@
       "email": "it.proffesor02@gmail.com"
     }
   ],
-  "repositories": [
-    {
-      "type": "git",
-      "url": "https://github.com/rollun-com/rollun-callback"
-    },
-    {
-      "type": "git",
-      "url": "https://github.com/rollun-com/rollun-permission"
-    }
-  ],
+
   "require": {
     "php": "^5.6 || ^7.0",
     "roave/security-advisories": "dev-master",
