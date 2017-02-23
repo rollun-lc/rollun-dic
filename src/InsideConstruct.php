@@ -61,18 +61,19 @@ class InsideConstruct
         foreach ($refParams as $refParam) {
             /* @var $refParam \ReflectionParameter */
             $paramName = $refParam->getName();
-
-            //Is param retrived?
-            if (empty($args)) {
-                //Do this param need in service loading
-                //Has service in $container?
-                $paramValue = self::getParamValue($paramName, $refParam);
-            } else {
-                //Value for param was retrived in __construct().
-                $paramValue = array_shift($args);
+            if (!in_array($paramName, array_keys($setService))) {
+                //Is param retrived?
+                if (empty($args)) {
+                    //Do this param need in service loading
+                    //Has service in $container?
+                    $paramValue = self::getParamValue($paramName, $refParam);
+                } else {
+                    //Value for param was retrived in __construct().
+                    $paramValue = array_shift($args);
+                }
+                $result[$paramName] = $paramValue;
+                InsideConstruct::setValue($reflectionClass, $paramName, $paramValue, $object);
             }
-            $result[$paramName] = $paramValue;
-            InsideConstruct::setValue($reflectionClass, $paramName, $paramValue, $object);
         }
         return $result;
     }
