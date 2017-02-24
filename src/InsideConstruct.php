@@ -50,27 +50,33 @@ class InsideConstruct
 
         //add service who not set in constructor
         $refParams = $refConstruct->getParameters();
-        foreach ($setService as $paramName => $service) {
-            if (static::$container->has($service)) {
-                $paramValue = static::$container->get($service);
-                $result[$paramName] = $paramValue;
-                InsideConstruct::setValue($reflectionClass, $paramName, $paramValue, $object);
-            }
-        }
         // $refParams array of ReflectionParameter
         foreach ($refParams as $refParam) {
             /* @var $refParam \ReflectionParameter */
             $paramName = $refParam->getName();
-            if (!in_array($paramName, array_keys($setService))) {
-                //Is param retrived?
-                if (empty($args)) {
-                    //Do this param need in service loading
-                    //Has service in $container?
-                    $paramValue = self::getParamValue($paramName, $refParam);
+            //Is param retrived?
+            if (empty($args)) {
+                //Do this param need in service loading
+                //if service mapped
+                if(array_key_exists($paramName, $setService)){
+                    $serviceName = $setService[$paramName];
+                    unset($setService[$paramName]);
                 } else {
-                    //Value for param was retrived in __construct().
-                    $paramValue = array_shift($args);
+                    $serviceName = $paramName;
                 }
+                //Has service in $container?
+                $paramValue = self::getParamValue($serviceName, $refParam);
+            } else {
+                //Value for param was retrived in __construct().
+                $paramValue = array_shift($args);
+            }
+            $result[$paramName] = $paramValue;
+            InsideConstruct::setValue($reflectionClass, $paramName, $paramValue, $object);
+        }
+        //set params to setter
+        foreach ($setService as $paramName => $service) {
+            if (static::$container->has($service)) {
+                $paramValue = static::$container->get($service);
                 $result[$paramName] = $paramValue;
                 InsideConstruct::setValue($reflectionClass, $paramName, $paramValue, $object);
             }
@@ -209,7 +215,7 @@ class InsideConstruct
         //gen call method signature with params
         $params = trim($params, ',');
         $closure = $refParentConstruct->getClosure($object);
-        eval('$closure('. $params.');');
+        eval('$closure(' . $params . ');');
         return $result;
     }
 
