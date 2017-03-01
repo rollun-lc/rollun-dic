@@ -19,37 +19,22 @@ return [
             'allowed_methods' => ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
          ],
         */
-        /*
-         * if you use rollun-callback uncomment this. and add Config.
-         [
-            'name' => 'interrupt.callback',
-            'path' => '/interrupt/callback',
-            'middleware' => 'interrupt-callback',
-            'allowed_methods' => ['POST'],
-         ],
-         */
+        /*[
+            'name' => 'api-datastore',
+            'path' => '/api/datastore[/{resourceName}[/{id}]]',
+            'middleware' => 'api-datastore',
+            'allowed_methods' => ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
+        ],
+        [
+            'name' => 'rest-datastore',
+            'path' => '/api/datastore[/{resourceName}[/{id}]]',
+            'middleware' => 'rest-datastore',
+            'allowed_methods' => ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
+        ],*/
         [
             'name' => 'webhook',
             'path' => '/webhook[/{resourceName}]',
             'middleware' => 'webhook',
-            'allowed_methods' => ['GET', 'POST'],
-        ],
-        [
-            'name' => 'login',
-            'path' => '/login',
-            'middleware' => 'authPipe',
-            'allowed_methods' => ['GET', 'POST'],
-        ],
-        [
-            'name' => 'logout',
-            'path' => '/logout',
-            'middleware' => \rollun\permission\Auth\Middleware\LogoutAction::class,
-            'allowed_methods' => ['GET', 'POST'],
-        ],
-        [
-            'name' => 'base-test-page',
-            'path' => '/base/test-page/[{name}]',
-            'middleware' => 'base-service',
             'allowed_methods' => ['GET', 'POST'],
         ],
         [
