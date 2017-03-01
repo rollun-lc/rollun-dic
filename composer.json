@@ -31,8 +31,7 @@
     "rollun-com/rollun-actionrender": "^2.0",
     "rollun-com/rollun-datastore": "^2.0",
     "rollun-com/rollun-callback": "^2.0",
-    "rollun-com/rollun-api": "dev-develop",
-    "rollun-com/rollun-permission": "dev-develop",
+    "rollun-com/rollun-api": "^1.0",
     "zendframework/zend-http": "^2.5"
   },
   "require-dev": {
