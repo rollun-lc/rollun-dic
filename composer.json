@@ -27,7 +27,6 @@
     "zendframework/zend-expressive-twigrenderer": "^1.0",
     "psr/log": "^1.0",
     "rollun-com/rollun-installer": "^1.0",
-    "mindplay/jsonfreeze": "0.3.3.x-dev",
     "rollun-com/rollun-actionrender": "^2.0",
     "rollun-com/rollun-datastore": "^2.0",
     "rollun-com/rollun-callback": "^2.0",

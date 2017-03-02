@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "7712309a91d5435299464f987bf27d0f",
-    "content-hash": "f1aae93de673d4822460b7ecf2b0c633",
+    "hash": "5f6c1ce65e6a260bd47aabaad11897c3",
+    "content-hash": "9ddef945c201e1ccc86f027e149e7f6e",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
@@ -1046,16 +1046,16 @@
         },
         {
             "name": "mindplay/jsonfreeze",
-            "version": "0.3.3.x-dev",
+            "version": "0.3.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mindplay-dk/jsonfreeze.git",
-                "reference": "06cb8564fd8209a24d454c097ab7e6298cc92841"
+                "reference": "b7c234f24baa2acebdf6aa360559a21d23d1696e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mindplay-dk/jsonfreeze/zipball/06cb8564fd8209a24d454c097ab7e6298cc92841",
-                "reference": "06cb8564fd8209a24d454c097ab7e6298cc92841",
+                "url": "https://api.github.com/repos/mindplay-dk/jsonfreeze/zipball/b7c234f24baa2acebdf6aa360559a21d23d1696e",
+                "reference": "b7c234f24baa2acebdf6aa360559a21d23d1696e",
                 "shasum": ""
             },
             "require": {
@@ -1081,7 +1081,7 @@
                 }
             ],
             "description": "JSON Serialization library",
-            "time": "2016-09-14 20:57:29"
+            "time": "2017-01-16 17:41:36"
         },
         {
             "name": "monolog/monolog",
@@ -2456,21 +2456,21 @@
         },
         {
             "name": "rollun-com/rollun-api",
-            "version": "1.0.0",
+            "version": "1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rollun-com/rollun-api.git",
-                "reference": "6b9eb2fc053f31641a9443a3df7f682ef0ac0008"
+                "reference": "05c5f76b465b6652031f53b733abcbede3b31a0d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rollun-com/rollun-api/zipball/6b9eb2fc053f31641a9443a3df7f682ef0ac0008",
-                "reference": "6b9eb2fc053f31641a9443a3df7f682ef0ac0008",
+                "url": "https://api.github.com/repos/rollun-com/rollun-api/zipball/05c5f76b465b6652031f53b733abcbede3b31a0d",
+                "reference": "05c5f76b465b6652031f53b733abcbede3b31a0d",
                 "shasum": ""
             },
             "require": {
                 "google/apiclient": "2.0",
-                "mindplay/jsonfreeze": "0.3.3.x-dev",
+                "mindplay/jsonfreeze": "0.3.3",
                 "php": "^5.6 || ^7.0",
                 "psr/log": "^1.0",
                 "roave/security-advisories": "dev-master",
@@ -2511,7 +2511,7 @@
                 "php",
                 "rest"
             ],
-            "time": "2017-03-01 17:35:42"
+            "time": "2017-03-02 08:38:04"
         },
         {
             "name": "rollun-com/rollun-callback",
@@ -2520,6 +2520,12 @@
                 "type": "git",
                 "url": "https://github.com/rollun-com/rollun-callback.git",
                 "reference": "d2dd6a1cc86a92c073961a2ff98fb848f967a40e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/rollun-com/rollun-callback/zipball/d2dd6a1cc86a92c073961a2ff98fb848f967a40e",
+                "reference": "d2dd6a1cc86a92c073961a2ff98fb848f967a40e",
+                "shasum": ""
             },
             "require": {
                 "opis/closure": "^2.1.0",
@@ -2552,25 +2558,7 @@
                     "rollun\\callback\\": "src/"
                 }
             },
-            "autoload-dev": {
-                "psr-4": {
-                    "rollun\\test\\callback\\": "tests/src"
-                }
-            },
-            "scripts": {
-                "serve": [
-                    "php -S 127.0.0.1:8080 -t public public/index.php"
-                ],
-                "lib-install": [
-                    "rollun\\installer\\Command::install"
-                ],
-                "lib-uninstall": [
-                    "rollun\\installer\\Command::uninstall"
-                ],
-                "lib-reinstall": [
-                    "rollun\\installer\\Command::reinstall"
-                ]
-            },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "GPL-3.0"
             ],
@@ -2878,20 +2866,20 @@
         },
         {
             "name": "rollun-com/rollun-utils",
-            "version": "1.0.4",
+            "version": "1.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rollun-com/rollun-utils.git",
-                "reference": "4440686c8feff69742ee7a61a1b79d59cad8d5e3"
+                "reference": "01a22482824e23b72ef9aa8481466d24cef0159f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rollun-com/rollun-utils/zipball/4440686c8feff69742ee7a61a1b79d59cad8d5e3",
-                "reference": "4440686c8feff69742ee7a61a1b79d59cad8d5e3",
+                "url": "https://api.github.com/repos/rollun-com/rollun-utils/zipball/01a22482824e23b72ef9aa8481466d24cef0159f",
+                "reference": "01a22482824e23b72ef9aa8481466d24cef0159f",
                 "shasum": ""
             },
             "require": {
-                "mindplay/jsonfreeze": "0.3.3.x-dev",
+                "mindplay/jsonfreeze": "0.3.3",
                 "opis/closure": "^2.1.0",
                 "php": "^5.6 || ^7.0",
                 "psr/log": "^1.0",
@@ -2936,7 +2924,7 @@
                 "php",
                 "rest"
             ],
-            "time": "2017-02-01 13:35:47"
+            "time": "2017-02-18 08:29:27"
         },
         {
             "name": "sebastian/comparator",
@@ -4735,25 +4723,27 @@
         },
         {
             "name": "zendframework/zend-servicemanager",
-            "version": "3.2.1",
+            "version": "3.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/zend-servicemanager.git",
-                "reference": "fe608d85457449889750fc6bf8d0859af59f56ec"
+                "reference": "c3036efb81f71bfa36cc9962ee5d4474f36581d0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/zend-servicemanager/zipball/fe608d85457449889750fc6bf8d0859af59f56ec",
-                "reference": "fe608d85457449889750fc6bf8d0859af59f56ec",
+                "url": "https://api.github.com/repos/zendframework/zend-servicemanager/zipball/c3036efb81f71bfa36cc9962ee5d4474f36581d0",
+                "reference": "c3036efb81f71bfa36cc9962ee5d4474f36581d0",
                 "shasum": ""
             },
             "require": {
-                "container-interop/container-interop": "~1.0",
+                "container-interop/container-interop": "^1.2",
                 "php": "^5.6 || ^7.0",
+                "psr/container": "^1.0",
                 "zendframework/zend-stdlib": "^3.1"
             },
             "provide": {
-                "container-interop/container-interop-implementation": "^1.1"
+                "container-interop/container-interop-implementation": "^1.2",
+                "psr/container-implementation": "^1.0"
             },
             "require-dev": {
                 "mikey179/vfsstream": "^1.6",
@@ -4773,8 +4763,8 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.2-dev",
-                    "dev-develop": "3.3-dev"
+                    "dev-master": "3.3-dev",
+                    "dev-develop": "3.4-dev"
                 }
             },
             "autoload": {
@@ -4792,7 +4782,7 @@
                 "servicemanager",
                 "zf"
             ],
-            "time": "2017-02-15 15:29:48"
+            "time": "2017-03-01 22:08:02"
         },
         {
             "name": "zendframework/zend-session",
@@ -5140,16 +5130,16 @@
         },
         {
             "name": "squizlabs/php_codesniffer",
-            "version": "2.8.0",
+            "version": "2.8.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/squizlabs/PHP_CodeSniffer.git",
-                "reference": "86dd55a522238211f9f3631e3361703578941d9a"
+                "reference": "d7cf0d894e8aa4c73712ee4a331cc1eaa37cdc7d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/86dd55a522238211f9f3631e3361703578941d9a",
-                "reference": "86dd55a522238211f9f3631e3361703578941d9a",
+                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/d7cf0d894e8aa4c73712ee4a331cc1eaa37cdc7d",
+                "reference": "d7cf0d894e8aa4c73712ee4a331cc1eaa37cdc7d",
                 "shasum": ""
             },
             "require": {
@@ -5214,14 +5204,13 @@
                 "phpcs",
                 "standards"
             ],
-            "time": "2017-02-02 03:30:00"
+            "time": "2017-03-01 22:17:45"
         }
     ],
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "roave/security-advisories": 20,
-        "mindplay/jsonfreeze": 20
+        "roave/security-advisories": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
