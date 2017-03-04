@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "945a0cfbbdc66332c6d16f1efa18015d",
-    "content-hash": "ebd2666debed7862725dad13d6e23974",
+    "hash": "ed6e56dc0372781c4d8691b92a3a3113",
+    "content-hash": "c44f124c1667dc31b2868ca741c2590c",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
@@ -2457,16 +2457,16 @@
         },
         {
             "name": "rollun-com/rollun-api",
-            "version": "1.0.1",
+            "version": "1.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rollun-com/rollun-api.git",
-                "reference": "05c5f76b465b6652031f53b733abcbede3b31a0d"
+                "reference": "02a6f91bf53c45ffbd6c5a58a85196c91bc7ee4d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rollun-com/rollun-api/zipball/05c5f76b465b6652031f53b733abcbede3b31a0d",
-                "reference": "05c5f76b465b6652031f53b733abcbede3b31a0d",
+                "url": "https://api.github.com/repos/rollun-com/rollun-api/zipball/02a6f91bf53c45ffbd6c5a58a85196c91bc7ee4d",
+                "reference": "02a6f91bf53c45ffbd6c5a58a85196c91bc7ee4d",
                 "shasum": ""
             },
             "require": {
@@ -2512,20 +2512,20 @@
                 "php",
                 "rest"
             ],
-            "time": "2017-03-02 08:38:04"
+            "time": "2017-03-04 13:40:13"
         },
         {
             "name": "rollun-com/rollun-callback",
-            "version": "3.0.1",
+            "version": "3.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rollun-com/rollun-callback.git",
-                "reference": "16e1621610327167124e11ee11b726b502459ce7"
+                "reference": "d7c5b41fcc158a2d4f9298501dcc4279574d9979"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rollun-com/rollun-callback/zipball/16e1621610327167124e11ee11b726b502459ce7",
-                "reference": "16e1621610327167124e11ee11b726b502459ce7",
+                "url": "https://api.github.com/repos/rollun-com/rollun-callback/zipball/d7c5b41fcc158a2d4f9298501dcc4279574d9979",
+                "reference": "d7c5b41fcc158a2d4f9298501dcc4279574d9979",
                 "shasum": ""
             },
             "require": {
@@ -2574,7 +2574,7 @@
                 }
             ],
             "description": "Callback",
-            "time": "2017-03-04 12:57:04"
+            "time": "2017-03-04 13:05:45"
         },
         {
             "name": "rollun-com/rollun-datastore",
@@ -2641,23 +2641,22 @@
         },
         {
             "name": "rollun-com/rollun-dic",
-            "version": "1.1.3",
+            "version": "1.1.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rollun-com/rollun-dic.git",
-                "reference": "a9523c930fcdf300e79d21e64e28d50c4a9bea18"
+                "reference": "7485884eb2a73a629b7ebd0039f2dcf46afc7c8c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rollun-com/rollun-dic/zipball/a9523c930fcdf300e79d21e64e28d50c4a9bea18",
-                "reference": "a9523c930fcdf300e79d21e64e28d50c4a9bea18",
+                "url": "https://api.github.com/repos/rollun-com/rollun-dic/zipball/7485884eb2a73a629b7ebd0039f2dcf46afc7c8c",
+                "reference": "7485884eb2a73a629b7ebd0039f2dcf46afc7c8c",
                 "shasum": ""
             },
             "require": {
                 "php": "^5.6 || ^7.0",
                 "psr/log": "^1.0",
                 "roave/security-advisories": "dev-master",
-                "rollun-com/rollun-installer": "^1.0",
                 "zendframework/zend-db": "2.8.2",
                 "zendframework/zend-expressive": "^1.0",
                 "zendframework/zend-expressive-fastroute": "^1.0",
@@ -2691,20 +2690,20 @@
                 }
             ],
             "description": "InsideConstruct",
-            "time": "2017-02-24 15:47:51"
+            "time": "2017-03-04 13:44:20"
         },
         {
             "name": "rollun-com/rollun-installer",
-            "version": "1.12",
+            "version": "1.13.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rollun-com/rollun-installer.git",
-                "reference": "e5d90386fcc38542ba09a524e771d919d03bb5e6"
+                "reference": "87aad3b4f31b863f72ced81f4ba6c768a2d8c74a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rollun-com/rollun-installer/zipball/e5d90386fcc38542ba09a524e771d919d03bb5e6",
-                "reference": "e5d90386fcc38542ba09a524e771d919d03bb5e6",
+                "url": "https://api.github.com/repos/rollun-com/rollun-installer/zipball/87aad3b4f31b863f72ced81f4ba6c768a2d8c74a",
+                "reference": "87aad3b4f31b863f72ced81f4ba6c768a2d8c74a",
                 "shasum": ""
             },
             "require": {
@@ -2712,6 +2711,7 @@
                 "composer/composer": "^1.0",
                 "php": "^5.6 || ^7.0",
                 "roave/security-advisories": "dev-master",
+                "rollun-com/rollun-dic": "^1.0",
                 "zendframework/zend-db": "2.8.2",
                 "zendframework/zend-expressive": "^1.0",
                 "zendframework/zend-expressive-fastroute": "^1.0",
@@ -2748,7 +2748,7 @@
                 }
             ],
             "description": "Installer",
-            "time": "2017-02-26 15:06:59"
+            "time": "2017-03-04 13:51:08"
         },
         {
             "name": "rollun-com/rollun-logger",
