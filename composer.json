@@ -27,9 +27,9 @@
     "zendframework/zend-expressive-twigrenderer": "^1.0",
     "psr/log": "^1.0",
     "rollun-com/rollun-installer": "^1.0",
-    "rollun-com/rollun-actionrender": "^2.0",
+    "rollun-com/rollun-actionrender": "^3.0",
     "rollun-com/rollun-datastore": "^2.0",
-    "rollun-com/rollun-callback": "^2.0",
+    "rollun-com/rollun-callback": "^3.0",
     "rollun-com/rollun-api": "^1.0",
     "zendframework/zend-http": "^2.5"
   },

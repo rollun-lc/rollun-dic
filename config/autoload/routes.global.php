@@ -34,7 +34,7 @@ return [
         [
             'name' => 'webhook',
             'path' => '/webhook[/{resourceName}]',
-            'middleware' => 'webhook',
+            'middleware' => 'webhookActionRender',
             'allowed_methods' => ['GET', 'POST'],
         ],
         [

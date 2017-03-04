@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "5f6c1ce65e6a260bd47aabaad11897c3",
-    "content-hash": "9ddef945c201e1ccc86f027e149e7f6e",
+    "hash": "945a0cfbbdc66332c6d16f1efa18015d",
+    "content-hash": "ebd2666debed7862725dad13d6e23974",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
@@ -1553,27 +1553,27 @@
         },
         {
             "name": "phpspec/prophecy",
-            "version": "v1.6.2",
+            "version": "v1.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpspec/prophecy.git",
-                "reference": "6c52c2722f8460122f96f86346600e1077ce22cb"
+                "reference": "93d39f1f7f9326d746203c7c056f300f7f126073"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpspec/prophecy/zipball/6c52c2722f8460122f96f86346600e1077ce22cb",
-                "reference": "6c52c2722f8460122f96f86346600e1077ce22cb",
+                "url": "https://api.github.com/repos/phpspec/prophecy/zipball/93d39f1f7f9326d746203c7c056f300f7f126073",
+                "reference": "93d39f1f7f9326d746203c7c056f300f7f126073",
                 "shasum": ""
             },
             "require": {
                 "doctrine/instantiator": "^1.0.2",
                 "php": "^5.3|^7.0",
                 "phpdocumentor/reflection-docblock": "^2.0|^3.0.2",
-                "sebastian/comparator": "^1.1",
-                "sebastian/recursion-context": "^1.0|^2.0"
+                "sebastian/comparator": "^1.1|^2.0",
+                "sebastian/recursion-context": "^1.0|^2.0|^3.0"
             },
             "require-dev": {
-                "phpspec/phpspec": "^2.0",
+                "phpspec/phpspec": "^2.5|^3.2",
                 "phpunit/phpunit": "^4.8 || ^5.6.5"
             },
             "type": "library",
@@ -1612,7 +1612,7 @@
                 "spy",
                 "stub"
             ],
-            "time": "2016-11-21 14:58:47"
+            "time": "2017-03-02 20:05:34"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -2270,12 +2270,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "07acc8c9c8d55bd2f1f161acc5aa164b571e4e8e"
+                "reference": "73603e2e613ddc14e2e11ec6da4e837bf0a2149a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/07acc8c9c8d55bd2f1f161acc5aa164b571e4e8e",
-                "reference": "07acc8c9c8d55bd2f1f161acc5aa164b571e4e8e",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/73603e2e613ddc14e2e11ec6da4e837bf0a2149a",
+                "reference": "73603e2e613ddc14e2e11ec6da4e837bf0a2149a",
                 "shasum": ""
             },
             "conflict": {
@@ -2331,6 +2331,7 @@
                 "simplesamlphp/simplesamlphp": "<1.14.11",
                 "simplesamlphp/simplesamlphp-module-infocard": "<1.0.1",
                 "socalnick/scn-social-auth": "<1.15.2",
+                "squizlabs/php_codesniffer": ">=1,<2.8.1",
                 "swiftmailer/swiftmailer": ">=4,<5.4.5",
                 "symfony/dependency-injection": ">=2,<2.0.17",
                 "symfony/form": ">=2.3,<2.3.35|>=2.4,<2.6.12|>=2.7,<2.7.7",
@@ -2396,20 +2397,20 @@
                 }
             ],
             "description": "Prevents installation of composer packages with known security vulnerabilities: no API, simply require it",
-            "time": "2017-02-28 15:07:27"
+            "time": "2017-03-02 15:23:30"
         },
         {
             "name": "rollun-com/rollun-actionrender",
-            "version": "2.3.0",
+            "version": "3.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rollun-com/rollun-actionrender.git",
-                "reference": "d47714c900ab1dd9bcbd52d45a6ae6a6a0443d75"
+                "reference": "8bcaebe3409e4369737a2f79e2bfc99d9b9bfbb7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rollun-com/rollun-actionrender/zipball/d47714c900ab1dd9bcbd52d45a6ae6a6a0443d75",
-                "reference": "d47714c900ab1dd9bcbd52d45a6ae6a6a0443d75",
+                "url": "https://api.github.com/repos/rollun-com/rollun-actionrender/zipball/8bcaebe3409e4369737a2f79e2bfc99d9b9bfbb7",
+                "reference": "8bcaebe3409e4369737a2f79e2bfc99d9b9bfbb7",
                 "shasum": ""
             },
             "require": {
@@ -2452,7 +2453,7 @@
                 }
             ],
             "description": "Skeleton for app or lib",
-            "time": "2017-03-01 12:35:46"
+            "time": "2017-03-04 10:42:28"
         },
         {
             "name": "rollun-com/rollun-api",
@@ -2515,16 +2516,16 @@
         },
         {
             "name": "rollun-com/rollun-callback",
-            "version": "2.1.0",
+            "version": "3.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rollun-com/rollun-callback.git",
-                "reference": "d2dd6a1cc86a92c073961a2ff98fb848f967a40e"
+                "reference": "16e1621610327167124e11ee11b726b502459ce7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rollun-com/rollun-callback/zipball/d2dd6a1cc86a92c073961a2ff98fb848f967a40e",
-                "reference": "d2dd6a1cc86a92c073961a2ff98fb848f967a40e",
+                "url": "https://api.github.com/repos/rollun-com/rollun-callback/zipball/16e1621610327167124e11ee11b726b502459ce7",
+                "reference": "16e1621610327167124e11ee11b726b502459ce7",
                 "shasum": ""
             },
             "require": {
@@ -2533,11 +2534,11 @@
                 "psr/log": "^1.0",
                 "reputation-vip/queue-client": "^1.0.1",
                 "roave/security-advisories": "dev-master",
-                "rollun-com/rollun-actionrender": "^2.0",
+                "rollun-com/rollun-actionrender": "^3",
                 "rollun-com/rollun-datastore": "^2.0",
                 "rollun-com/rollun-dic": "^1.0",
                 "rollun-com/rollun-installer": "~1.0",
-                "rollun-com/rollun-logger": "^1.0",
+                "rollun-com/rollun-logger": "^1.4",
                 "rollun-com/rollun-promise": "^1.0",
                 "rollun-com/rollun-utils": "^1.0",
                 "zendframework/zend-db": "2.8.2",
@@ -2573,20 +2574,20 @@
                 }
             ],
             "description": "Callback",
-            "time": "2017-02-18 13:37:59"
+            "time": "2017-03-04 12:57:04"
         },
         {
             "name": "rollun-com/rollun-datastore",
-            "version": "2.2.0",
+            "version": "2.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rollun-com/rollun-datastore.git",
-                "reference": "1e2ef550f0628e05cd4a0ed1a0aebbdc515596f7"
+                "reference": "eb6d323ce6af5e430acb1fd3901b54af03a57df7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rollun-com/rollun-datastore/zipball/1e2ef550f0628e05cd4a0ed1a0aebbdc515596f7",
-                "reference": "1e2ef550f0628e05cd4a0ed1a0aebbdc515596f7",
+                "url": "https://api.github.com/repos/rollun-com/rollun-datastore/zipball/eb6d323ce6af5e430acb1fd3901b54af03a57df7",
+                "reference": "eb6d323ce6af5e430acb1fd3901b54af03a57df7",
                 "shasum": ""
             },
             "require": {
@@ -2594,7 +2595,7 @@
                 "phpunit/phpunit": "^4.0",
                 "psr/log": "^1.0",
                 "roave/security-advisories": "dev-master",
-                "rollun-com/rollun-actionrender": "^2.1",
+                "rollun-com/rollun-actionrender": "^3",
                 "rollun-com/rollun-installer": "^1.0",
                 "rollun-com/rollun-logger": "^1.0",
                 "rollun-com/rollun-utils": "^1.0",
@@ -2636,7 +2637,7 @@
                 }
             ],
             "description": "Datastore",
-            "time": "2017-02-27 14:22:54"
+            "time": "2017-03-04 10:56:09"
         },
         {
             "name": "rollun-com/rollun-dic",
@@ -2751,16 +2752,16 @@
         },
         {
             "name": "rollun-com/rollun-logger",
-            "version": "1.2.2",
+            "version": "1.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rollun-com/rollun-logger.git",
-                "reference": "736a3316ff08878d501140362194bc514d29d12d"
+                "reference": "8b5f1adf05840f0673f05c3f5460a59068a92e2e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rollun-com/rollun-logger/zipball/736a3316ff08878d501140362194bc514d29d12d",
-                "reference": "736a3316ff08878d501140362194bc514d29d12d",
+                "url": "https://api.github.com/repos/rollun-com/rollun-logger/zipball/8b5f1adf05840f0673f05c3f5460a59068a92e2e",
+                "reference": "8b5f1adf05840f0673f05c3f5460a59068a92e2e",
                 "shasum": ""
             },
             "require": {
@@ -2804,27 +2805,27 @@
                 }
             ],
             "description": "Logger",
-            "time": "2017-02-18 09:05:37"
+            "time": "2017-03-04 11:10:52"
         },
         {
             "name": "rollun-com/rollun-promise",
-            "version": "1.1.1",
+            "version": "1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rollun-com/rollun-promise.git",
-                "reference": "df508bdc927a80fb68ababe51794c4645996df9c"
+                "reference": "2c5f150fb67e107c9e78ed385db9cec0468455a5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rollun-com/rollun-promise/zipball/df508bdc927a80fb68ababe51794c4645996df9c",
-                "reference": "df508bdc927a80fb68ababe51794c4645996df9c",
+                "url": "https://api.github.com/repos/rollun-com/rollun-promise/zipball/2c5f150fb67e107c9e78ed385db9cec0468455a5",
+                "reference": "2c5f150fb67e107c9e78ed385db9cec0468455a5",
                 "shasum": ""
             },
             "require": {
                 "opis/closure": "^2.1.0",
                 "php": "^5.6 || ^7.0",
                 "roave/security-advisories": "dev-master",
-                "rollun-com/rollun-datastore": "^2.0",
+                "rollun-com/rollun-datastore": "^2.3",
                 "rollun-com/rollun-dic": "^1.0",
                 "rollun-com/rollun-installer": "^1.0",
                 "rollun-com/rollun-logger": "^1.0",
@@ -2862,7 +2863,7 @@
                 }
             ],
             "description": "Promise",
-            "time": "2017-02-18 09:45:02"
+            "time": "2017-03-04 11:51:29"
         },
         {
             "name": "rollun-com/rollun-utils",
@@ -3819,20 +3820,21 @@
         },
         {
             "name": "twig/twig",
-            "version": "v1.32.0",
+            "version": "v2.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "9935b662e24d6e634da88901ab534cc12e8c728f"
+                "reference": "29bb02dde09ff56291d30f7687eb8696918023af"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/9935b662e24d6e634da88901ab534cc12e8c728f",
-                "reference": "9935b662e24d6e634da88901ab534cc12e8c728f",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/29bb02dde09ff56291d30f7687eb8696918023af",
+                "reference": "29bb02dde09ff56291d30f7687eb8696918023af",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.2.7"
+                "php": "^7.0",
+                "symfony/polyfill-mbstring": "~1.0"
             },
             "require-dev": {
                 "psr/container": "^1.0",
@@ -3842,7 +3844,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.32-dev"
+                    "dev-master": "2.2-dev"
                 }
             },
             "autoload": {
@@ -3877,7 +3879,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2017-02-27 00:07:03"
+            "time": "2017-02-27 00:16:20"
         },
         {
             "name": "webmozart/assert",
@@ -4460,41 +4462,41 @@
         },
         {
             "name": "zendframework/zend-expressive-twigrenderer",
-            "version": "1.2.1",
+            "version": "1.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/zend-expressive-twigrenderer.git",
-                "reference": "786c2b971856c810106b37e9e9b8a90cc28ae454"
+                "reference": "a1583749cc55b79b81939175281e56a5c9449213"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/zend-expressive-twigrenderer/zipball/786c2b971856c810106b37e9e9b8a90cc28ae454",
-                "reference": "786c2b971856c810106b37e9e9b8a90cc28ae454",
+                "url": "https://api.github.com/repos/zendframework/zend-expressive-twigrenderer/zipball/a1583749cc55b79b81939175281e56a5c9449213",
+                "reference": "a1583749cc55b79b81939175281e56a5c9449213",
                 "shasum": ""
             },
             "require": {
-                "container-interop/container-interop": "^1.1",
+                "container-interop/container-interop": "^1.2",
                 "php": "^5.6 || ^7.0",
-                "twig/twig": "^1.26",
-                "zendframework/zend-expressive-helpers": "^1.1 || ^2.0 || ^3.0",
-                "zendframework/zend-expressive-router": "^1.3.2 || ^2.0",
+                "twig/twig": "^1.32 || ^2.1",
+                "zendframework/zend-expressive-helpers": "^1.4 || ^2.2 || ^3.0.1",
+                "zendframework/zend-expressive-router": "^1.3.2 || ^2.1",
                 "zendframework/zend-expressive-template": "^1.0.4"
             },
             "require-dev": {
                 "malukenho/docheader": "^0.1.5",
-                "phpunit/phpunit": "^5.7",
+                "phpunit/phpunit": "^6.0.7 || ^5.7.14",
                 "zendframework/zend-coding-standard": "~1.0.0"
             },
             "suggest": {
-                "aura/di": "3.0.*@beta to make use of Aura.Di dependency injection container",
+                "aura/di": "^3.2 to make use of Aura.Di dependency injection container",
                 "mouf/pimple-interop": "^1.0 to use Pimple for dependency injection",
-                "zendframework/zend-servicemanager": "^2.5 to use zend-servicemanager for dependency injection"
+                "zendframework/zend-servicemanager": "^3.3 to use zend-servicemanager for dependency injection"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.2-dev",
-                    "dev-develop": "1.3-dev"
+                    "dev-master": "1.3-dev",
+                    "dev-develop": "1.4-dev"
                 }
             },
             "autoload": {
@@ -4515,7 +4517,7 @@
                 "psr-7",
                 "twig"
             ],
-            "time": "2017-01-12 10:57:50"
+            "time": "2017-03-02 17:50:19"
         },
         {
             "name": "zendframework/zend-filter",
@@ -5070,20 +5072,21 @@
     "packages-dev": [
         {
             "name": "filp/whoops",
-            "version": "2.1.6",
+            "version": "2.1.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filp/whoops.git",
-                "reference": "92bdc6800ac6e233c9e161a1768e082389a73530"
+                "reference": "1a8192deae1f35aabc3a73aad19cd07c68091dd1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/filp/whoops/zipball/92bdc6800ac6e233c9e161a1768e082389a73530",
-                "reference": "92bdc6800ac6e233c9e161a1768e082389a73530",
+                "url": "https://api.github.com/repos/filp/whoops/zipball/1a8192deae1f35aabc3a73aad19cd07c68091dd1",
+                "reference": "1a8192deae1f35aabc3a73aad19cd07c68091dd1",
                 "shasum": ""
             },
             "require": {
-                "php": "^5.5.9 || ^7.0"
+                "php": "^5.5.9 || ^7.0",
+                "psr/log": "^1.0.1"
             },
             "require-dev": {
                 "mockery/mockery": "0.9.*",
@@ -5126,7 +5129,7 @@
                 "whoops",
                 "zf2"
             ],
-            "time": "2017-02-18 14:22:27"
+            "time": "2017-03-02 16:54:56"
         },
         {
             "name": "squizlabs/php_codesniffer",
