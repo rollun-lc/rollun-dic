@@ -9,4 +9,4 @@
 
 * [Стандарты](https://github.com/rollun-com/rollun-skeleton/blob/master/docs/Standarts.md)
 
-* [rollun-dic README](https://github.com/rollun-com/rollun-skeleton/blob/master/docs/README.md)
+* [rollun-dic README](https://github.com/rollun-com/rollun-dic/blob/develop/docs/README.md)
