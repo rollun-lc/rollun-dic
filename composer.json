@@ -40,9 +40,6 @@
     }
   },
   "scripts": {
-    "serve": "php -S 127.0.0.1:8080 -t public public/index.php",
-    "lib-install": "rollun\\installer\\Command::install",
-    "lib-uninstall": "rollun\\installer\\Command::uninstall",
-    "lib-reinstall": "rollun\\installer\\Command::reinstall"
+    "serve": "php -S 127.0.0.1:8080 -t public public/index.php"
   }
 }
