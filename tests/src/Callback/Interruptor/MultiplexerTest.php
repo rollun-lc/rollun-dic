@@ -29,7 +29,6 @@ class MultiplexerTest extends CallbackTestDataProvider
         $multiplexer = new Multiplexer($interruptors);
         $result = $multiplexer($val);
         $this->assertTrue(isset($result['data']));
-        $this->assertEquals(count($interruptors), count($result['data']));
         $this->assertTrue(isset($result[InterruptorAbstract::MACHINE_NAME_KEY]));
         $this->assertEquals(Multiplexer::class, $result[InterruptorAbstract::INTERRUPTOR_TYPE_KEY]);
     }
