@@ -14,7 +14,7 @@ require_once 'config/env_configurator.php';
 
 // Define application environment - 'dev' or 'prop'
 if (constant('APP_ENV') === 'dev') {
-    error_reporting(E_ALL);
+    error_reporting(E_ALL &(~E_WARNING) & (~E_NOTICE));
     ini_set('display_errors', 1);
 }
 //todo:: add remove error
