@@ -39,7 +39,7 @@ class HelloWorldInstaller extends InstallerAbstract
             'routes' => [
                 [
                     'name' => 'home-page',
-                    'path' => '/[{name}]',
+                    'path' => '/',
                     'middleware' => 'home-service',
                     'allowed_methods' => ['GET'],
                 ],

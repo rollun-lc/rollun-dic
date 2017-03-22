@@ -31,6 +31,7 @@
     "rollun-com/rollun-dic": "^1.0",
     "rollun-com/rollun-datastore": "^3.0",
     "rollun-com/rollun-callback": "^3.0",
+    "rollun-com/rollun-permission": "^1.0",
     "rollun-com/rollun-api": "^2.0",
     "zendframework/zend-http": "^2.5"
   },
