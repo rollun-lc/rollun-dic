@@ -58,7 +58,7 @@ class InsideConstruct
             if (empty($args)) {
                 //Do this param need in service loading
                 //if service mapped
-                if(array_key_exists($paramName, $setService)){
+                if (array_key_exists($paramName, $setService)) {
                     $serviceName = $setService[$paramName];
                     unset($setService[$paramName]);
                 } else {
@@ -151,9 +151,13 @@ class InsideConstruct
             $reflectionClass->getProperty($paramName) :
             null;
 
-        if (isset($refMethod) && $refMethod->isPublic()) {
+        if (isset($refMethod) && static::checkSetter($refMethod) && $refMethod->isPublic()) {
             $refMethod->invoke($object, $paramValue);
-        } elseif (isset($refMethod) && ($refMethod->isPrivate() || $refMethod->isProtected())) {
+        } elseif (
+            isset($refMethod)
+            && static::checkSetter($refMethod)
+            && ($refMethod->isPrivate() || $refMethod->isProtected())
+        ) {
             $refMethod->setAccessible(true);
             $refMethod->invoke($object, $paramValue);
             $refMethod->setAccessible(false);
@@ -164,6 +168,16 @@ class InsideConstruct
             $refProperty->setValue($object, $paramValue);
             $refProperty->setAccessible(false);
         }
+    }
+
+    /**
+     * check setter
+     * @return bool
+     * @param \ReflectionMethod $method
+     */
+    protected static function checkSetter(\ReflectionMethod $method)
+    {
+        return count($method->getParameters()) == 1;
     }
 
     /**
