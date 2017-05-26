@@ -9,6 +9,7 @@
 namespace rollun\test\dic;
 
 use Interop\Container\ContainerInterface;
+use PHPUnit\Framework\TestCase;
 use rollun\dic\Example\InheritanceSimpleDependency;
 use rollun\dic\Example\SettersDefault;
 use rollun\dic\Example\SimpleDependency;
@@ -19,7 +20,7 @@ use rollun\dic\Example\SimpleWithSeterAndConstruct;
 use rollun\dic\Example\StaticDepSun;
 use rollun\dic\InsideConstruct;
 
-class InsideConstructTest extends \PHPUnit_Framework_TestCase
+class InsideConstructTest extends TestCase
 {
     /**
      * @var ContainerInterface
@@ -202,7 +203,7 @@ class InsideConstructTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $this->container = $this->getMock(ContainerInterface::class);
+        $this->container = $this->getMockBuilder(ContainerInterface::class)->getMock();
         InsideConstruct::setContainer($this->container);
     }
 }

@@ -32,6 +32,9 @@ $app->pipe(ServerUrlMiddleware::class);
 // - $app->pipe('/api', $apiMiddleware);
 // - $app->pipe('/docs', $apiDocMiddleware);
 // - $app->pipe('/files', $filesMiddleware);
+if($container->has('permissionPipe')) {
+    $app->pipe('permissionPipe');
+}
 
 // Register the routing middleware in the middleware pipeline
 $app->pipeRoutingMiddleware();

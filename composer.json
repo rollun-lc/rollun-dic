@@ -24,7 +24,7 @@
     "zendframework/zend-stdlib": "^3.1",
     "zendframework/zend-servicemanager": "^3.3",
     "zendframework/zend-expressive-fastroute": "^2.0",
-    "zendframework/zend-expressive-twigrenderer": "^1.4",
+    "zendframework/zend-expressive-zendviewrenderer": "^1.4",
     "zendframework/zend-db": "2.8.2",
     "psr/log": "^1.0",
     "zendframework/zend-http": "^2.5"
@@ -38,12 +38,12 @@
   },
   "autoload": {
     "psr-4": {
-      "rollun\\dic\\": "src/"
+      "rollun\\dic\\": "src/Dic/src"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "rollun\\test\\dic\\": "tests/src"
+      "rollun\\test\\dic\\": "test/Dic"
     }
   },
   "scripts": {
