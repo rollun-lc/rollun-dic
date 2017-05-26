@@ -8,7 +8,9 @@
 
 namespace rollun\test\skeleton;
 
-class TestEnvTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class TestEnvTest extends TestCase
 {
     protected $nameEnvVars = [
         'APP_ENV',
