@@ -10,7 +10,14 @@
 namespace rollun\dic;
 
 use Interop\Container\ContainerInterface;
+use ReflectionParameter;
 
+/**
+ * Class InsideConstruct
+ * @package rollun\dic
+ * TODO: add abstract keyword
+ * TODO: refactor all code
+ */
 class InsideConstruct
 {
 
@@ -28,63 +35,6 @@ class InsideConstruct
     protected static $container = null;
 
     /**
-     * @return array
-     */
-    public static function setConstructParams(array $setService = [])
-    {
-        $result = [];
-
-        InsideConstruct::checkContainer();
-
-        //Who call me?;
-        $trace = debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT, 2);
-        $className = $trace[1]['class'];
-        $reflectionClass = new \ReflectionClass($className);
-        /* @var $reflectionClass \ReflectionClass */
-        $object = $trace[1]['object'];
-        $args = $trace[1]['args'];
-
-        //I need your __construct params
-        //$reflectionClass->getMethod('__construct');
-        InsideConstruct::checkConstruct(($refConstruct = $reflectionClass->getConstructor()));
-
-        //add service who not set in constructor
-        $refParams = $refConstruct->getParameters();
-        // $refParams array of ReflectionParameter
-        foreach ($refParams as $refParam) {
-            /* @var $refParam \ReflectionParameter */
-            $paramName = $refParam->getName();
-            //Is param retrived?
-            if (empty($args)) {
-                //Do this param need in service loading
-                //if service mapped
-                if (array_key_exists($paramName, $setService)) {
-                    $serviceName = $setService[$paramName];
-                    unset($setService[$paramName]);
-                } else {
-                    $serviceName = $paramName;
-                }
-                //Has service in $container?
-                $paramValue = self::getParamValue($serviceName, $refParam);
-            } else {
-                //Value for param was retrived in __construct().
-                $paramValue = array_shift($args);
-            }
-            $result[$paramName] = $paramValue;
-            InsideConstruct::setValue($reflectionClass, $paramName, $paramValue, $object);
-        }
-        //set params to setter
-        foreach ($setService as $paramName => $service) {
-            if (static::$container->has($service)) {
-                $paramValue = static::$container->get($service);
-                $result[$paramName] = $paramValue;
-                InsideConstruct::setValue($reflectionClass, $paramName, $paramValue, $object);
-            }
-        }
-        return $result;
-    }
-
-    /**
      *
      */
     protected static function checkContainer()
@@ -100,22 +50,34 @@ class InsideConstruct
     }
 
     /**
-     * @param \ReflectionMethod|null $refConstruct
+     * @param \ReflectionMethod $reflectionMethod
+     * @param $expectedMethodName
      */
-    protected static function checkConstruct(\ReflectionMethod $refConstruct = null)
+    protected static function validateMethodCall(\ReflectionMethod $reflectionMethod, $expectedMethodName)
     {
-        //!проверяет наличие метода construct, а не нахождения в нем
-        if (!isset($refConstruct)) {
+        if ($reflectionMethod->getName() !== $expectedMethodName) {
             throw new \LengthException(
-                'You must call InsideConstruct::initServices() inside Construct only'
+                "You must call InsideConstruct::initServices() inside $expectedMethodName only"
             );
         }
     }
 
     /**
+     * @param \ReflectionMethod|null $refConstruct
+     * @deprecated
+     */
+    protected static function checkConstruct(\ReflectionMethod $refConstruct)
+    {
+        //!проверяет наличие метода construct, а не нахождения в нем
+        static::validateMethodCall($refConstruct, "__construct");
+    }
+
+    /**
      * @param $paramName
-     * @param $refParam
+     * @param \ReflectionParameter $refParam
      * @return mixed
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      */
     protected static function getParamValue($paramName, \ReflectionParameter $refParam)
     {
@@ -183,6 +145,9 @@ class InsideConstruct
     /**
      * @param array $loadParams
      * @return mixed
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
+     * @throws \ReflectionException
      */
     public static function runParentConstruct(array $loadParams = [])
     {
@@ -209,6 +174,8 @@ class InsideConstruct
      * @param $object
      * @param \ReflectionMethod $refParentConstruct
      * @return mixed
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      */
     protected static function parentService(array $loadParams, $refParams, $object, \ReflectionMethod $refParentConstruct)
     {
@@ -235,8 +202,10 @@ class InsideConstruct
 
     /**
      * @param array $mapping
-     * @param array $setService
      * @return array
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
+     * @throws \ReflectionException
      */
     public static function init(array $mapping = [])
     {
@@ -306,5 +275,105 @@ class InsideConstruct
     public static function setContainer(ContainerInterface $container)
     {
         static::$container = $container;
+    }
+
+    /**
+     * @param array $setService
+     * @return array
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
+     * @throws \ReflectionException
+     */
+    public static function setConstructParams(array $setService = [])
+    {
+        InsideConstruct::checkContainer();
+
+        //Who call me?;
+        $trace = debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT, 2);
+        $className = $trace[1]['class'];
+        $object = $trace[1]['object'];
+        $function = $trace[1]['function'];
+        $args = $trace[1]['args'];
+
+        $reflectionClass = new \ReflectionClass($className);
+        $refConstruct = $reflectionClass->getMethod($function);
+        InsideConstruct::validateMethodCall($refConstruct, "__construct");
+
+        return self::initServices($setService, $args, $object, $refConstruct->getParameters(), $reflectionClass);
+    }
+
+    /**
+     * @param array $service
+     * @return mixed
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
+     * @throws \ReflectionException
+     */
+    public static function initWakeup(array $service = [])
+    {
+        InsideConstruct::checkContainer();
+
+        //Who call me?;
+        $trace = debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT, 2);
+        $className = $trace[1]['class'];
+        $object = $trace[1]['object'];
+        $function = $trace[1]['function'];
+        $args = $trace[1]['args'];
+
+        $reflectionClass = new \ReflectionClass($className);
+        $refWakeup = $reflectionClass->getMethod($function);
+        InsideConstruct::validateMethodCall($refWakeup, "__wakeup");
+
+        return self::initServices($service, $args, $object, $refWakeup->getParameters(), $reflectionClass);
+    }
+
+    /**
+     * @param array $setService
+     * @param $args
+     * @param $object
+     * @param ReflectionParameter[] $methodParams
+     * @param \ReflectionClass $reflectionClass
+     * @return mixed
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
+     */
+    protected static function initServices(array $setService, $args, $object, array $methodParams, \ReflectionClass $reflectionClass)
+    {
+        $result = [];
+
+        //add service who not set in constructor
+        //$refParams = $refConstruct->getParameters();
+        // $refParams array of ReflectionParameter
+        foreach ($methodParams as $refParam) {
+            /* @var $refParam \ReflectionParameter */
+            $paramName = $refParam->getName();
+            //Is param retrived?
+            if (empty($args)) {
+                //Do this param need in service loading
+                //if service mapped
+                if (array_key_exists($paramName, $setService)) {
+                    $serviceName = $setService[$paramName];
+                    unset($setService[$paramName]);
+                } else {
+                    $serviceName = $paramName;
+                }
+                //Has service in $container?
+                $paramValue = self::getParamValue($serviceName, $refParam);
+            } else {
+                //Value for param was retrived in __construct().
+                $paramValue = array_shift($args);
+            }
+            $result[$paramName] = $paramValue;
+            InsideConstruct::setValue($reflectionClass, $paramName, $paramValue, $object);
+        }
+        //set params to setter
+        foreach ($setService as $paramName => $service) {
+            if (static::$container->has($service)) {
+                $paramValue = static::$container->get($service);
+                $result[$paramName] = $paramValue;
+                InsideConstruct::setValue($reflectionClass, $paramName, $paramValue, $object);
+            }
+        }
+        return $result;
     }
 }
