@@ -1,276 +1,32 @@
 <?php
 
-/**
- * Zaboy lib (http://zaboy.org/lib/)
- *
- * @copyright  Zaboychenko Andrey
- * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- */
 
 namespace rollun\dic;
 
 use Interop\Container\ContainerInterface;
+use Psr\Container\ContainerExceptionInterface;
+use Psr\Container\NotFoundExceptionInterface;
+use ReflectionClass;
+use ReflectionException;
+use ReflectionMethod;
 use ReflectionParameter;
+use RuntimeException;
 
 /**
  * Class InsideConstruct
  * @package rollun\dic
- * TODO: add abstract keyword
- * TODO: refactor all code
  */
-class InsideConstruct
+class InsideConstruct implements InsideConstructInterface
 {
-
     /**
-     * Use next in head af scripts
-     * <code>
-     * require 'vendor/autoload.php';
-     * $container = include 'config/container.php';
-     * //add:
-     * InsideConstruct::setContainer( $container )
-     * <code>
-     *
      * @var ContainerInterface
      */
-    protected static $container = null;
+    private static $container = null;
 
     /**
-     *
-     */
-    protected static function checkContainer()
-    {
-        global $container;
-        static::$container = static::$container ? static::$container : $container;
-        if (!(isset(static::$container) && static::$container instanceof ContainerInterface)) {
-            throw new \UnexpectedValueException(
-                'global $contaner or InsideConstruct::$contaner'
-                . ' must be inited'
-            );
-        }
-    }
-
-    /**
-     * @param \ReflectionMethod $reflectionMethod
-     * @param $expectedMethodName
-     */
-    protected static function validateMethodCall(\ReflectionMethod $reflectionMethod, $expectedMethodName)
-    {
-        if ($reflectionMethod->getName() !== $expectedMethodName) {
-            throw new \LengthException(
-                "You must call InsideConstruct::initServices() inside $expectedMethodName only"
-            );
-        }
-    }
-
-    /**
-     * @param \ReflectionMethod|null $refConstruct
-     * @deprecated
-     */
-    protected static function checkConstruct(\ReflectionMethod $refConstruct)
-    {
-        //!проверяет наличие метода construct, а не нахождения в нем
-        static::validateMethodCall($refConstruct, "__construct");
-    }
-
-    /**
-     * @param $paramName
-     * @param \ReflectionParameter $refParam
-     * @return mixed
-     * @throws \Psr\Container\ContainerExceptionInterface
-     * @throws \Psr\Container\NotFoundExceptionInterface
-     */
-    protected static function getParamValue($paramName, \ReflectionParameter $refParam)
-    {
-        if (static::$container->has($paramName)) {
-            $paramValue = static::$container->get($paramName); // >getType()
-            $paramClass = $refParam->getClass() ? $refParam->getClass()->getName() : null;
-            if ($paramClass && !($paramValue instanceof $paramClass)) {
-                throw new \LogicException(
-                    'Wrong type for service: ' . $paramName
-                );
-            }
-        } else {
-            $paramValue = $refParam->getDefaultValue();
-        }
-        return $paramValue;
-    }
-
-    /**
-     * @param \ReflectionClass $reflectionClass
-     * @param $paramName
-     * @param $paramValue
-     * @param $object
-     */
-    protected static function setValue(\ReflectionClass $reflectionClass, $paramName, $paramValue, $object)
-    {
-        //setters
-        $methodName = 'set' . ucfirst($paramName);
-        $refMethod = $reflectionClass->hasMethod($methodName) ?
-            $reflectionClass->getMethod($methodName) :
-            null;
-        //properties
-        $refProperty = $reflectionClass->hasProperty($paramName) ?
-            $reflectionClass->getProperty($paramName) :
-            null;
-
-        if (isset($refMethod) && static::checkSetter($refMethod) && $refMethod->isPublic()) {
-            $refMethod->invoke($object, $paramValue);
-        } elseif (
-            isset($refMethod)
-            && static::checkSetter($refMethod)
-            && ($refMethod->isPrivate() || $refMethod->isProtected())
-        ) {
-            $refMethod->setAccessible(true);
-            $refMethod->invoke($object, $paramValue);
-            $refMethod->setAccessible(false);
-        } elseif (isset($refProperty) && $refProperty->isPublic()) {
-            $refProperty->setValue($object, $paramValue);
-        } elseif (isset($refProperty) && ($refProperty->isPrivate() || $refProperty->isProtected())) {
-            $refProperty->setAccessible(true);
-            $refProperty->setValue($object, $paramValue);
-            $refProperty->setAccessible(false);
-        }
-    }
-
-    /**
-     * check setter
-     * @return bool
-     * @param \ReflectionMethod $method
-     */
-    protected static function checkSetter(\ReflectionMethod $method)
-    {
-        return count($method->getParameters()) == 1;
-    }
-
-    /**
-     * @param array $loadParams
-     * @return mixed
-     * @throws \Psr\Container\ContainerExceptionInterface
-     * @throws \Psr\Container\NotFoundExceptionInterface
-     * @throws \ReflectionException
-     */
-    public static function runParentConstruct(array $loadParams = [])
-    {
-        InsideConstruct::checkContainer();
-
-        //Who call me?;
-        $trace = debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT, 2);
-        $className = $trace[1]['class'];
-        $reflectionClass = new \ReflectionClass($className);
-        $object = $trace[1]['object'];
-        /* @var $reflectionClass \ReflectionClass */
-
-        $refParentClass = $reflectionClass->getParentClass();
-        InsideConstruct::checkConstruct(($refParentConstruct = $refParentClass->getConstructor()));
-
-        $refParams = $refParentConstruct->getParameters();
-
-        return self::parentService($loadParams, $refParams, $object, $refParentConstruct);
-    }
-
-    /**
-     * @param array $loadParams
-     * @param $refParams
-     * @param $object
-     * @param \ReflectionMethod $refParentConstruct
-     * @return mixed
-     * @throws \Psr\Container\ContainerExceptionInterface
-     * @throws \Psr\Container\NotFoundExceptionInterface
-     */
-    protected static function parentService(array $loadParams, $refParams, $object, \ReflectionMethod $refParentConstruct)
-    {
-        $params = '';
-        $result = [];
-
-        /** @var \ReflectionParameter $refParam */
-        foreach ($refParams as $refParam) {
-            $paramName = $refParam->getName();
-            if (!in_array($paramName, array_keys($loadParams))) {
-                $paramValue = self::getParamValue($paramName, $refParam);
-            } else {
-                $paramValue = $loadParams[$paramName];
-            }
-            $result[$paramName] = $paramValue;
-            $params .= '$result["' . $paramName . '"],';
-        }
-        //gen call method signature with params
-        $params = trim($params, ',');
-        $closure = $refParentConstruct->getClosure($object);
-        eval('$closure(' . $params . ');');
-        return $result;
-    }
-
-    /**
-     * @param array $mapping
-     * @return array
-     * @throws \Psr\Container\ContainerExceptionInterface
-     * @throws \Psr\Container\NotFoundExceptionInterface
-     * @throws \ReflectionException
-     */
-    public static function init(array $mapping = [])
-    {
-        $result = [];
-        $loadParams = [];
-
-        InsideConstruct::checkContainer();
-
-        //Who call me?;
-        $trace = debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT, 2);
-        $className = $trace[1]['class'];
-        $reflectionClass = new \ReflectionClass($className);
-        /* @var $reflectionClass \ReflectionClass */
-        $object = $trace[1]['object'];
-        $args = $trace[1]['args'];
-
-        //I need your __construct params
-        //$reflectionClass->getMethod('__construct');
-        InsideConstruct::checkConstruct(($refConstruct = $reflectionClass->getConstructor()));
-
-        $refParams = $refConstruct->getParameters();
-        // $refParams array of ReflectionParameter
-
-        // class hasn't parent
-        $refParentClass = $reflectionClass->getParentClass();
-        if ($refParentClass) {
-            $refParentConstruct = $refParentClass->getConstructor();
-            InsideConstruct::checkConstruct($refParentConstruct);
-            $refParentParams = $refParentConstruct->getParameters();
-        }
-
-        foreach ($refParams as $refParam) {
-            $paramName = $refParam->getName();
-
-            if (empty($args)) {
-                //Do this param need in service loading
-                //Has service in $container?
-                $paramValue = self::getParamValue($paramName, $refParam);
-            } else {
-                //Value for param was retrived in __construct().
-                $paramValue = array_shift($args);
-            }
-            // if class hasn't parent or service not set
-            if (!$refParentClass || (!in_array($refParam, $refParentParams) && !isset($mapping[$paramName]))) {
-                $result[$paramName] = $paramValue;
-                InsideConstruct::setValue($reflectionClass, $paramName, $paramValue, $object);
-            } else {
-                if (isset($mapping[$paramName])) {
-                    $loadParams[$mapping[$paramName]] = $paramValue;
-                } else {
-                    $loadParams[$paramName] = $paramValue;
-                }
-            }
-        }
-        //if has parent add he service
-        if ($refParentClass) {
-            $parentResult = self::parentService($loadParams, $refParentParams, $object, $refParentConstruct);
-            $result = array_merge($result, $parentResult);
-        }
-
-        return $result;
-    }
-
-    /**
+     * Setup container into InsideConstructor
      * @param ContainerInterface $container
+     * @return void
      */
     public static function setContainer(ContainerInterface $container)
     {
@@ -278,102 +34,378 @@ class InsideConstruct
     }
 
     /**
-     * @param array $setService
-     * @return array
-     * @throws \Psr\Container\ContainerExceptionInterface
-     * @throws \Psr\Container\NotFoundExceptionInterface
-     * @throws \ReflectionException
+     * Check if container is setted.
+     * @throws RuntimeException
      */
-    public static function setConstructParams(array $setService = [])
+    private static function validateContainer()
     {
-        InsideConstruct::checkContainer();
-
-        //Who call me?;
-        $trace = debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT, 2);
-        $className = $trace[1]['class'];
-        $object = $trace[1]['object'];
-        $function = $trace[1]['function'];
-        $args = $trace[1]['args'];
-
-        $reflectionClass = new \ReflectionClass($className);
-        $refConstruct = $reflectionClass->getMethod($function);
-        InsideConstruct::validateMethodCall($refConstruct, "__construct");
-
-        return self::initServices($setService, $args, $object, $refConstruct->getParameters(), $reflectionClass);
+        global $container;
+        static::$container = static::$container ? static::$container : $container;
+        if (!(isset(static::$container) && static::$container instanceof ContainerInterface)) {
+            throw new RuntimeException(
+                'global $contaner or InsideConstruct::$contaner'
+                . ' must be inited'
+            );
+        }
     }
 
     /**
-     * @param array $service
-     * @return mixed
-     * @throws \Psr\Container\ContainerExceptionInterface
-     * @throws \Psr\Container\NotFoundExceptionInterface
-     * @throws \ReflectionException
+     * Validate InsideConstruct::class method call.
+     * Can call in __wakeup and __construct
+     * @param ReflectionMethod $reflectionMethod
+     * @param $expectedMethodName
      */
-    public static function initWakeup(array $service = [])
+    private static function validateCallerMethod(ReflectionMethod $reflectionMethod, $expectedMethodName)
     {
-        InsideConstruct::checkContainer();
-
-        //Who call me?;
-        $trace = debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT, 2);
-        $className = $trace[1]['class'];
-        $object = $trace[1]['object'];
-        $function = $trace[1]['function'];
-        $args = $trace[1]['args'];
-
-        $reflectionClass = new \ReflectionClass($className);
-        $refWakeup = $reflectionClass->getMethod($function);
-        InsideConstruct::validateMethodCall($refWakeup, "__wakeup");
-
-        return self::initServices($service, $args, $object, $refWakeup->getParameters(), $reflectionClass);
+        if ($reflectionMethod->getName() !== $expectedMethodName) {
+            throw new RuntimeException(
+                "You must call InsideConstruct::initServices() inside $expectedMethodName only"
+            );
+        }
     }
 
     /**
-     * @param array $setService
-     * @param $args
-     * @param $object
-     * @param ReflectionParameter[] $methodParams
-     * @param \ReflectionClass $reflectionClass
-     * @return mixed
-     * @throws \Psr\Container\ContainerExceptionInterface
-     * @throws \Psr\Container\NotFoundExceptionInterface
+     * Return info for object which call InsideConstruct
+     * @see http://php.net/manual/ru/function.debug-backtrace.php
+     * @return BacktraceInfo
+     * @throws ReflectionException
      */
-    protected static function initServices(array $setService, $args, $object, array $methodParams, \ReflectionClass $reflectionClass)
+    private static function getCallerInfo()
     {
-        $result = [];
+        //limit 3 because expected call from 3 nested level relative caller object
+        $trace = debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT, 3);
+        //todo: maybe upper limit and add search caller object in trace without "expected".
+        $info = $trace[2];
+        return BacktraceInfo::initFromArray($info);
+    }
 
-        //add service who not set in constructor
-        //$refParams = $refConstruct->getParameters();
-        // $refParams array of ReflectionParameter
-        foreach ($methodParams as $refParam) {
-            /* @var $refParam \ReflectionParameter */
-            $paramName = $refParam->getName();
-            //Is param retrived?
-            if (empty($args)) {
-                //Do this param need in service loading
-                //if service mapped
-                if (array_key_exists($paramName, $setService)) {
-                    $serviceName = $setService[$paramName];
-                    unset($setService[$paramName]);
-                } else {
-                    $serviceName = $paramName;
+    /**
+     * Inject dependency to caller object (Which call InsideConstruct)
+     *
+     * @param ReflectionClass $reflectionClass
+     * @param object $object
+     * @param $propertyName
+     * @param $dependency
+     * @return void
+     */
+    private static function injectDependencyToCaller(ReflectionClass $reflectionClass, $object, $propertyName, $dependency)
+    {
+        $setterName = "set" . ucfirst($propertyName);
+        //setters
+        $refMethod = $reflectionClass->hasMethod($setterName) ?
+            $reflectionClass->getMethod($setterName) :
+            null;
+        //properties
+        $refProperty = $reflectionClass->hasProperty($propertyName) ?
+            $reflectionClass->getProperty($propertyName) :
+            null;
+        if (isset($refMethod) && static::checkSetterMethod($refMethod) && $refMethod->isPublic()) {
+            $refMethod->invoke($object, $dependency);
+        } elseif (
+            isset($refMethod)
+            && static::checkSetterMethod($refMethod)
+            && ($refMethod->isPrivate() || $refMethod->isProtected())
+        ) {
+            $refMethod->setAccessible(true);
+            $refMethod->invoke($object, $dependency);
+            $refMethod->setAccessible(false);
+        } elseif (isset($refProperty) && $refProperty->isPublic()) {
+            $refProperty->setValue($object, $dependency);
+        } elseif (isset($refProperty) && ($refProperty->isPrivate() || $refProperty->isProtected())) {
+            $refProperty->setAccessible(true);
+            $refProperty->setValue($object, $dependency);
+            $refProperty->setAccessible(false);
+        }
+    }
+
+    /**
+     * Check if dependency type is simple and dosn't loaded form container
+     * integer, float, string, boolean, array, resource
+     * @param $type
+     * @return boolean
+     */
+    private static function isSimpleDependency($type)
+    {
+        return in_array($type, [
+            "integer",
+            "float",
+            "string",
+            "array",
+            "boolean",
+            "resource",
+        ]);
+    }
+
+    /**
+     * Throw error if dependency type is not equals expected
+     * @param $dependency
+     * @param $type
+     * @throws RuntimeException
+     */
+    private static function validateType($dependency, $type)
+    {
+        if (is_null($type)) return;
+        $functionName = "is_$type";
+        if (function_exists($functionName)) {
+            $isInvalid = $functionName($dependency);
+        } else {
+            $isInvalid = is_a($dependency, $type, true);
+        }
+        if ($isInvalid) {
+            throw new RuntimeException("Expected dependency type $type");
+        }
+    }
+
+    /**
+     * Type [scalar,array,resource] - not search in container
+     * Type Class - search in container, throw exception if not found and if param is not nulable
+     * Without typing - search in container. trigger warning if not loaded
+     * @param $dependencyName
+     * @param $reflectionParam
+     * @throws RuntimeException
+     * @return mixed
+     */
+    private static function getDependencyValue(ReflectionParameter $reflectionParam, $dependencyName)
+    {
+        $paramType = $reflectionParam->getType();
+        if ($paramType && static::isSimpleDependency($paramType->getName())) {
+            //not load from container
+            $dependency = $reflectionParam->getDefaultValue();
+        } else {
+            if (static::$container->has($dependencyName)) {
+                try {
+                    $dependency = static::$container->get($dependencyName);
+                } catch (NotFoundExceptionInterface $e) {
+                    throw new RuntimeException(
+                        "Dependency with name $dependencyName not loaded cosed by exception.", $e->getCode(), $e);
+                } catch (ContainerExceptionInterface $e) {
+                    throw new RuntimeException(
+                        "Dependency with name $dependencyName not loaded cosed by exception.", $e->getCode(), $e);
                 }
-                //Has service in $container?
-                $paramValue = self::getParamValue($serviceName, $refParam);
+                static::validateType($dependency, $paramType);
             } else {
-                //Value for param was retrived in __construct().
-                $paramValue = array_shift($args);
-            }
-            $result[$paramName] = $paramValue;
-            InsideConstruct::setValue($reflectionClass, $paramName, $paramValue, $object);
-        }
-        //set params to setter
-        foreach ($setService as $paramName => $service) {
-            if (static::$container->has($service)) {
-                $paramValue = static::$container->get($service);
-                $result[$paramName] = $paramValue;
-                InsideConstruct::setValue($reflectionClass, $paramName, $paramValue, $object);
+                if (!$paramType) {
+                    //trigger_error("Not found value for untyped param $dependencyName. Use default value", E_USER_WARNING);
+                } elseif (!$paramType->allowsNull()) {
+                    throw new RuntimeException("Dependency with name $dependencyName not found in container.");
+                }
+                $dependency = $reflectionParam->getDefaultValue();
             }
         }
-        return $result;
+        return $dependency;
+    }
+
+    /**
+     * Return false if method is not setter
+     *  Has mere then one params
+     * @param ReflectionMethod $reflectionMethod
+     * @return bool
+     */
+    private static function checkSetterMethod(ReflectionMethod $reflectionMethod)
+    {
+        //TODO: Add prototype check
+        return ($reflectionMethod->getNumberOfParameters() == 1);
+    }
+
+    /**
+     * Return service which expected received from method (__construct)
+     * @param array $parameters
+     * @param array $args
+     * @param array $dependencyMapping
+     * @return array
+     */
+    private static function getMethodDependency(array $parameters, array $args, array $dependencyMapping = [])
+    {
+        $dependencies = [];
+        /** @var ReflectionParameter[] $parameters */
+        foreach ($parameters as $reflectionParam) {
+            $paramName = $reflectionParam->getName();
+            if (empty($args)) {
+                $dependencyName = isset($dependencyMapping[$paramName]) ? $dependencyMapping[$paramName] : $paramName;
+                $dependency = static::getDependencyValue($reflectionParam, $dependencyName);
+            } else {
+                $dependency = array_shift($args);
+            }
+            $dependencies[$paramName] = $dependency;
+        }
+        return $dependencies;
+    }
+
+    /**
+     * load service for object property if setted in dependancyMapping array
+     * @param $reflectionClass
+     * @param $dependencyMapping
+     * @return array
+     */
+    private static function getPropertiesDependency(ReflectionClass $reflectionClass, array $dependencyMapping)
+    {
+        $dependencies = [];
+        foreach ($dependencyMapping as $propertyName => $dependencyName) {
+            if ($reflectionClass->hasProperty($propertyName)) {
+                try {
+                    $dependency = static::$container->get($dependencyName);
+                    $dependencies[$propertyName] = $dependency;
+                } catch (NotFoundExceptionInterface $e) {
+                    throw new RuntimeException(
+                        "Dependency with name $dependencyName not loaded cosed by exception.", $e->getCode(), $e);
+                } catch (ContainerExceptionInterface $e) {
+                    throw new RuntimeException(
+                        "Dependency with name $dependencyName not loaded cosed by exception.", $e->getCode(), $e);
+                }
+            }
+        }
+        return $dependencies;
+    }
+
+    /**
+     * @param $object
+     * @param array $parentConstructorDependencies
+     * @return array
+     * @throws ReflectionException
+     */
+    private static function parentConstruct($object, array $parentConstructorDependencies = [])
+    {
+        $dependencies = [];
+        $reflectionParentClass = (new ReflectionClass($object))->getParentClass();
+        if (!$reflectionParentClass) {
+            throw new \InvalidArgumentException("Object haven't parent __constructor.");
+        }
+        $reflectionParentConstruct = $reflectionParentClass->getConstructor();
+        $parentParams = $reflectionParentConstruct->getParameters();
+        foreach ($parentParams as $parentParam) {
+            $paramName = $parentParam->getName();
+            if (!array_key_exists($paramName, $parentConstructorDependencies)) {
+                $dependency = static::getDependencyValue($parentParam, $paramName);
+            } else {
+                $dependency = $parentConstructorDependencies[$paramName];
+            }
+            $dependencies[$paramName] = $dependency;
+        }
+        $constructClosure = $reflectionParentConstruct->getClosure($object);
+        $constructClosure(...array_values($dependencies));
+        return $dependencies;
+    }
+
+    /**
+     * Init dependency service and call parent construct with service init
+     * @param array $dependencyMapping
+     * @return array
+     * @throws ReflectionException
+     */
+    public static function init(array $dependencyMapping = [])
+    {
+        static::validateContainer();
+        $backtraceInfo = static::getCallerInfo();
+        static::validateCallerMethod($backtraceInfo->getReflectionMethod(), "__construct");
+
+        $methodDependencies = static::getMethodDependency(
+            $backtraceInfo->getReflectionMethod()->getParameters(),
+            $backtraceInfo->getArgs(),
+            $dependencyMapping
+        );
+
+        //load parent dependency
+        $parentConstructorDependencies = [];
+        $reflectionParentClass = $backtraceInfo->getReflectionClass()->getParentClass();
+        if ($reflectionParentClass) {
+            $reflectionParentConstruct = $reflectionParentClass->getConstructor();
+            $parentParams = $reflectionParentConstruct->getParameters();
+            foreach ($parentParams as $parentParam) {
+                if (in_array($parentParam->getName(), $dependencyMapping)) {
+                    $dependencyName = array_search($parentParam->getName(), $dependencyMapping);
+                    $dependency = $methodDependencies[$dependencyName];
+                    $parentConstructorDependencies[$parentParam->getName()] = $dependency;
+                }
+            }
+        }
+
+        $dependencyMapping = array_diff_key($dependencyMapping, $methodDependencies);
+
+        $propertiesDependency = static::getPropertiesDependency(
+            $backtraceInfo->getReflectionClass(), $dependencyMapping);
+        $dependencies = array_merge($methodDependencies, $propertiesDependency);
+
+        //inject dependency
+        foreach ($dependencies as $propertyName => $dependency) {
+            static::injectDependencyToCaller($backtraceInfo->getReflectionClass(),$backtraceInfo->getObject(), $propertyName, $dependency);
+        }
+        if ($reflectionParentClass) {
+            static::parentConstruct($backtraceInfo->getObject(), $parentConstructorDependencies);
+        }
+        return $dependencies;
+    }
+
+    /**
+     * Init service in __wakeup method
+     * @param array $dependencyMapping
+     * @return array
+     * @throws ReflectionException
+     */
+    public static function initWakeup(array $dependencyMapping = [])
+    {
+        static::validateContainer();
+        $backtraceInfo = static::getCallerInfo();
+        static::validateCallerMethod($backtraceInfo->getReflectionMethod(), "__wakeup");
+
+        $methodDependencies = static::getMethodDependency(
+            $backtraceInfo->getReflectionMethod()->getParameters(),
+            $backtraceInfo->getArgs(),
+            $dependencyMapping
+        );
+        $propertiesDependency = static::getPropertiesDependency(
+            $backtraceInfo->getReflectionClass(),
+            array_diff_key($dependencyMapping, $methodDependencies)
+        );
+        $dependencies = array_merge($methodDependencies, $propertiesDependency);
+        //inject dependency
+        foreach ($dependencies as $propertyName => $dependency) {
+            static::injectDependencyToCaller($backtraceInfo->getReflectionClass(),$backtraceInfo->getObject(), $propertyName, $dependency);
+        }
+        return $dependencies;
+    }
+
+    /**
+     * Init service usage dependency service from __constructor args
+     * @param array $dependencyMapping
+     * @return array
+     * @throws ReflectionException
+     */
+    public static function setConstructParams(array $dependencyMapping = [])
+    {
+        static::validateContainer();
+        $backtraceInfo = static::getCallerInfo();
+        static::validateCallerMethod($backtraceInfo->getReflectionMethod(), "__construct");
+
+        $methodDependencies = static::getMethodDependency(
+            $backtraceInfo->getReflectionMethod()->getParameters(),
+            $backtraceInfo->getArgs(),
+            $dependencyMapping
+        );
+        $propertiesDependency = static::getPropertiesDependency(
+            $backtraceInfo->getReflectionClass(),
+            array_diff_key($dependencyMapping, $methodDependencies)
+        );
+        $dependencies = array_merge($methodDependencies, $propertiesDependency);
+        //inject dependency
+        foreach ($dependencies as $propertyName => $dependency) {
+            static::injectDependencyToCaller($backtraceInfo->getReflectionClass(),$backtraceInfo->getObject(), $propertyName, $dependency);
+        }
+        return $dependencies;
+    }
+
+    /**
+     * Run parent constructor (parent::__constructor(...))
+     * with init service usage dependency service from __constructor args
+     * @param array $loadParams
+     * @return array
+     * @throws ReflectionException
+     */
+    public static function runParentConstruct(array $loadParams = [])
+    {
+        static::validateContainer();
+        $backtraceInfo = static::getCallerInfo();
+        static::validateCallerMethod($backtraceInfo->getReflectionMethod(), "__construct");
+
+        return static::parentConstruct($backtraceInfo->getObject(), $loadParams);
     }
 }
