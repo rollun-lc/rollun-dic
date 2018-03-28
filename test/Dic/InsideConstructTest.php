@@ -9,8 +9,10 @@
 namespace rollun\test\dic;
 
 use Interop\Container\ContainerInterface;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use rollun\dic\Example\InheritanceSimpleDependency;
+use rollun\dic\Example\SerializedService;
 use rollun\dic\Example\SettersDefault;
 use rollun\dic\Example\SimpleDependency;
 use rollun\dic\Example\Inheritance;
@@ -26,6 +28,46 @@ class InsideConstructTest extends TestCase
      * @var ContainerInterface
      */
     protected $container;
+
+    public function testCallOnWakeup()
+    {
+        $simpleDependency = new SimpleDependency();
+        /** @var $container MockObject */
+        $this->container->method("has")->with(SimpleDependency::class)->willReturn(true);
+        $this->container->method("get")->with(SimpleDependency::class)->willReturn($simpleDependency);
+        $tested = new SerializedService($simpleDependency);
+        $serializeData = serialize($tested);
+        /** @var SerializedService $afterSerializeTested */
+        $afterSerializeTested = unserialize($serializeData);
+        $this->assertEquals($tested->getSimpleService(), $afterSerializeTested->getSimpleService());
+    }
+
+    /**
+     * @expectedException \RuntimeException
+     */
+    public function testCallNotInConstructorException() {
+        InsideConstruct::init();
+    }
+
+    /**
+     *
+     */
+    public function testNotLoadSimpleType() {
+        $this->container->method("has")->with()->willReturn(true);
+        $this->container->method("get")->with("simpleStringA")->will(function (){throw new \RuntimeException("");});
+        $this->container->method("get")->with("simpleNumericB")->will(function (){throw new \RuntimeException("");});
+        $this->container->method("get")->with("simpleArrayC")->will(function (){throw new \RuntimeException("");});
+        new SimpleDependency();
+    }
+
+    public function testNotFoundNonTypingService() {
+        throw new \RuntimeException();
+    }
+
+    public function testNotFoundServiceException() {
+        $this->container->method("has")->with()->willReturn(false);
+        new SimpleDependency();
+    }
 
     public function testInitServicesSimpleDependency()
     {

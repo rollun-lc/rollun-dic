@@ -184,9 +184,9 @@ class InsideConstruct implements InsideConstructInterface
                 }
                 static::validateType($dependency, $paramType);
             } else {
-                if (!$paramType) {
+                /*if (!$paramType) {
                     //trigger_error("Not found value for untyped param $dependencyName. Use default value", E_USER_WARNING);
-                } elseif (!$paramType->allowsNull()) {
+                } else*/if ($paramType && !$paramType->allowsNull()) {
                     throw new RuntimeException("Dependency with name $dependencyName not found in container.");
                 }
                 $dependency = $reflectionParam->getDefaultValue();
