@@ -17,6 +17,8 @@ use rollun\dic\Example\SettersDefault;
 use rollun\dic\Example\SimpleDependency;
 use rollun\dic\Example\Inheritance;
 use rollun\dic\Example\SimpleDependencyInit;
+use rollun\dic\Example\SimpleService;
+use rollun\dic\Example\SimpleTypeService;
 use rollun\dic\Example\SimpleWithSeter;
 use rollun\dic\Example\SimpleWithSeterAndConstruct;
 use rollun\dic\Example\StaticDepSun;
@@ -54,19 +56,32 @@ class InsideConstructTest extends TestCase
      */
     public function testNotLoadSimpleType() {
         $this->container->method("has")->with()->willReturn(true);
-        $this->container->method("get")->with("simpleStringA")->will(function (){throw new \RuntimeException("");});
-        $this->container->method("get")->with("simpleNumericB")->will(function (){throw new \RuntimeException("");});
-        $this->container->method("get")->with("simpleArrayC")->will(function (){throw new \RuntimeException("");});
-        new SimpleDependency();
+        $stub = $this->returnCallback(function (){throw new \RuntimeException("");});
+        $this->container->method("get")->with("simpleStringA")->will($stub);
+        $this->container->method("get")->with("simpleNumericB")->will($stub);
+        $this->container->method("get")->with("simpleArrayC")->will($stub);
+        $simple = new SimpleTypeService(1,"asd");
+        $this->assertEquals(1, $simple->getInt());
+        $this->assertEquals("asd", $simple->getString());
+        $this->assertEquals(9.8, $simple->getFloat());
+        $this->assertEquals([], $simple->getArray());
+
     }
 
     public function testNotFoundNonTypingService() {
-        throw new \RuntimeException();
+        $this->container->method("has")->willReturn(false);
+        $simpleDep = new SimpleDependency();
+        $this->assertEquals('simpleStringA',$simpleDep->getSimpleStringA());
+        $this->assertEquals(2.4,$simpleDep->simpleNumericB);
+        $this->assertEquals([0 => 'simpleArrayC'],$simpleDep->getSimpleArrayC());
     }
 
+    /**
+     * @expectedException \RuntimeException
+     */
     public function testNotFoundServiceException() {
-        $this->container->method("has")->with()->willReturn(false);
-        new SimpleDependency();
+        $this->container->method("has")->willReturn(false);
+        new SimpleService();
     }
 
     public function testInitServicesSimpleDependency()
