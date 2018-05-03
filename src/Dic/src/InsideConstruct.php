@@ -151,7 +151,7 @@ class InsideConstruct implements InsideConstructInterface
         if (function_exists($functionName)) {
             $isInvalid = $functionName($dependency);
         } else {
-            $isInvalid = is_a($dependency, $type, true);
+            $isInvalid = !is_a($dependency, $type, true);
         }
         if ($isInvalid) {
             throw new RuntimeException("Expected dependency type $type");
