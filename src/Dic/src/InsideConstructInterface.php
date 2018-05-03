@@ -21,24 +21,24 @@ interface InsideConstructInterface
 
     /**
      * Init dependency service and call parent construct with service init
-     * @param array $mapping
+     * @param array $dependencyMapping
      * @return array
      */
-    public static function init(array $mapping = []);
+    public static function init(array $dependencyMapping = []);
 
     /**
      * Init service usage dependency service from __constructor args
-     * @param array $setService
+     * @param array $dependencyMapping
      * @return array
      */
-    public static function setConstructParams(array $setService = []);
+    public static function setConstructParams(array $dependencyMapping = []);
 
     /**
      * Init service in __wakeup method
-     * @param array $service
+     * @param array $dependencyMapping
      * @return array
      */
-    public static function initWakeup(array $service = []);
+    public static function initWakeup(array $dependencyMapping = []);
 
     /**
      * Run parent constructor (parent::__constructor(...))

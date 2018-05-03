@@ -127,11 +127,13 @@ class InsideConstruct implements InsideConstructInterface
     private static function isSimpleDependency($type)
     {
         return in_array($type, [
+            "int",
             "integer",
             "float",
             "string",
             "array",
             "boolean",
+            "bool",
             "resource",
         ]);
     }
@@ -149,7 +151,7 @@ class InsideConstruct implements InsideConstructInterface
         if (function_exists($functionName)) {
             $isInvalid = $functionName($dependency);
         } else {
-            $isInvalid = is_a($dependency, $type, true);
+            $isInvalid = !is_a($dependency, $type, true);
         }
         if ($isInvalid) {
             throw new RuntimeException("Expected dependency type $type");
@@ -186,7 +188,7 @@ class InsideConstruct implements InsideConstructInterface
             } else {
                 /*if (!$paramType) {
                     //trigger_error("Not found value for untyped param $dependencyName. Use default value", E_USER_WARNING);
-                } else*/if ($paramType && !$paramType->allowsNull()) {
+                } else*/if ($paramType && $reflectionParam->getClass()) {
                     throw new RuntimeException("Dependency with name $dependencyName not found in container.");
                 }
                 $dependency = $reflectionParam->getDefaultValue();
