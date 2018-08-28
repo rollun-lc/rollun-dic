@@ -170,7 +170,9 @@ class InsideConstruct implements InsideConstructInterface
     private static function getDependencyValue(ReflectionParameter $reflectionParam, $dependencyName)
     {
         $paramType = $reflectionParam->getType();
-        if ($paramType && static::isSimpleDependency($paramType->getName())) {
+        //For version compatibility. In 7.1 __toString is deprecated, and add getName.
+        $typeName = method_exists($paramType, "getName") ? $paramType->getName() : $paramType->__toString();
+        if ($paramType && static::isSimpleDependency()) {
             //not load from container
             $dependency = $reflectionParam->getDefaultValue();
         } else {
