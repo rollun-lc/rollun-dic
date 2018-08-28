@@ -172,7 +172,7 @@ class InsideConstruct implements InsideConstructInterface
         $paramType = $reflectionParam->getType();
         //For version compatibility. In 7.1 __toString is deprecated, and add getName.
         $typeName = method_exists($paramType, "getName") ? $paramType->getName() : $paramType->__toString();
-        if ($paramType && static::isSimpleDependency()) {
+        if ($paramType && static::isSimpleDependency($typeName)) {
             //not load from container
             $dependency = $reflectionParam->getDefaultValue();
         } else {
