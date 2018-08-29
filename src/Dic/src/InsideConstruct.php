@@ -170,9 +170,11 @@ class InsideConstruct implements InsideConstructInterface
     private static function getDependencyValue(ReflectionParameter $reflectionParam, $dependencyName)
     {
         $paramType = $reflectionParam->getType();
+
         //For version compatibility. In 7.1 __toString is deprecated, and add getName.
-        $typeName = method_exists($paramType, "getName") ? $paramType->getName() : $paramType->__toString();
-        if ($paramType && static::isSimpleDependency($typeName)) {
+        if ($paramType && static::isSimpleDependency(
+                method_exists($paramType, "getName") ? $paramType->getName() : $paramType->__toString()
+            )) {
             //not load from container
             $dependency = $reflectionParam->getDefaultValue();
         } else {
@@ -190,7 +192,8 @@ class InsideConstruct implements InsideConstructInterface
             } else {
                 /*if (!$paramType) {
                     //trigger_error("Not found value for untyped param $dependencyName. Use default value", E_USER_WARNING);
-                } else*/if ($paramType && $reflectionParam->getClass()) {
+                } else*/
+                if ($paramType && $reflectionParam->getClass()) {
                     throw new RuntimeException("Dependency with name $dependencyName not found in container.");
                 }
                 $dependency = $reflectionParam->getDefaultValue();
@@ -331,7 +334,7 @@ class InsideConstruct implements InsideConstructInterface
 
         //inject dependency
         foreach ($dependencies as $propertyName => $dependency) {
-            static::injectDependencyToCaller($backtraceInfo->getReflectionClass(),$backtraceInfo->getObject(), $propertyName, $dependency);
+            static::injectDependencyToCaller($backtraceInfo->getReflectionClass(), $backtraceInfo->getObject(), $propertyName, $dependency);
         }
         if ($reflectionParentClass) {
             static::parentConstruct($backtraceInfo->getObject(), $parentConstructorDependencies);
@@ -363,7 +366,7 @@ class InsideConstruct implements InsideConstructInterface
         $dependencies = array_merge($methodDependencies, $propertiesDependency);
         //inject dependency
         foreach ($dependencies as $propertyName => $dependency) {
-            static::injectDependencyToCaller($backtraceInfo->getReflectionClass(),$backtraceInfo->getObject(), $propertyName, $dependency);
+            static::injectDependencyToCaller($backtraceInfo->getReflectionClass(), $backtraceInfo->getObject(), $propertyName, $dependency);
         }
         return $dependencies;
     }
@@ -392,7 +395,7 @@ class InsideConstruct implements InsideConstructInterface
         $dependencies = array_merge($methodDependencies, $propertiesDependency);
         //inject dependency
         foreach ($dependencies as $propertyName => $dependency) {
-            static::injectDependencyToCaller($backtraceInfo->getReflectionClass(),$backtraceInfo->getObject(), $propertyName, $dependency);
+            static::injectDependencyToCaller($backtraceInfo->getReflectionClass(), $backtraceInfo->getObject(), $propertyName, $dependency);
         }
         return $dependencies;
     }
