@@ -13,6 +13,7 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use rollun\dic\Example\InheritanceSimpleDependency;
 use rollun\dic\Example\SerializedService;
+use rollun\dic\Example\ServiceWithParentWithoutConstructor;
 use rollun\dic\Example\SettersDefault;
 use rollun\dic\Example\SimpleDependency;
 use rollun\dic\Example\Inheritance;
@@ -252,6 +253,17 @@ class InsideConstructTest extends TestCase
         $tested = new Inheritance();
 
         $this->assertEquals('PropNewA value', $tested->propA);
+    }
+
+    public function testServiceWithParentWithoutConstructor() {
+        $simpleDependency = new SimpleDependency();
+
+        /** @var $container MockObject */
+        $this->container->method("has")->with(SimpleDependency::class)->willReturn(true);
+        $this->container->method("get")->with(SimpleDependency::class)->willReturn($simpleDependency);
+
+        $service = new ServiceWithParentWithoutConstructor();
+        $this->assertEquals($simpleDependency, $service->getSimpleService());
     }
 
     /**

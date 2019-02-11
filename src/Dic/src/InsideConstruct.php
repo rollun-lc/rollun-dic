@@ -165,6 +165,7 @@ class InsideConstruct implements InsideConstructInterface
      * @param $dependencyName
      * @param $reflectionParam
      * @throws RuntimeException
+     * @throws ReflectionException
      * @return mixed
      */
     private static function getDependencyValue(ReflectionParameter $reflectionParam, $dependencyName)
@@ -278,6 +279,9 @@ class InsideConstruct implements InsideConstructInterface
             throw new \InvalidArgumentException("Object haven't parent __constructor.");
         }
         $reflectionParentConstruct = $reflectionParentClass->getConstructor();
+        if(is_null($reflectionParentConstruct)) {
+            return $dependencies;
+        }
         $parentParams = $reflectionParentConstruct->getParameters();
         foreach ($parentParams as $parentParam) {
             $paramName = $parentParam->getName();
@@ -316,7 +320,7 @@ class InsideConstruct implements InsideConstructInterface
         $reflectionParentClass = $backtraceInfo->getReflectionClass()->getParentClass();
         if ($reflectionParentClass) {
             $reflectionParentConstruct = $reflectionParentClass->getConstructor();
-            $parentParams = $reflectionParentConstruct->getParameters();
+            $parentParams = is_null($reflectionParentConstruct) ? [] : $reflectionParentConstruct->getParameters();
             foreach ($parentParams as $parentParam) {
                 if (in_array($parentParam->getName(), $dependencyMapping)) {
                     $dependencyName = array_search($parentParam->getName(), $dependencyMapping);
