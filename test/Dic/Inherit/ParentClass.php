@@ -12,7 +12,7 @@ class ParentClass extends AbstractClass
 {
     protected $test;
 
-    public function __construct($test = null)
+    public function __construct(DependencyClass $test = null)
     {
         static $count = 1;
         $count++;

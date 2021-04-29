@@ -16,6 +16,8 @@ class InheritTest extends TestCase
 
     public function testInherit()
     {
-        $object = new ChildrenClass();
+        $instance = new ChildrenClass();
+
+        $this->assertInstanceOf(ChildrenClass::class, $instance);
     }
 }
