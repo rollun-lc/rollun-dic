@@ -19,5 +19,6 @@ class InheritTest extends TestCase
         $instance = new ChildrenClass();
 
         $this->assertInstanceOf(ChildrenClass::class, $instance);
+        $this->assertEquals($instance->aTest, "test");
     }
 }

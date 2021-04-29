@@ -164,9 +164,9 @@ class InsideConstruct implements InsideConstructInterface
      * Without typing - search in container. trigger warning if not loaded
      * @param $dependencyName
      * @param $reflectionParam
-     * @throws RuntimeException
-     * @throws ReflectionException
      * @return mixed
+     * @throws ReflectionException
+     * @throws RuntimeException
      */
     private static function getDependencyValue(ReflectionParameter $reflectionParam, $dependencyName)
     {
@@ -271,17 +271,18 @@ class InsideConstruct implements InsideConstructInterface
      * @return array
      * @throws ReflectionException
      */
-    private static function parentConstruct($object, array $parentConstructorDependencies = [])
+    private static function parentConstruct(ReflectionClass $reflectionParentClass, $object, array $parentConstructorDependencies = [])
     {
         $dependencies = [];
-        $reflectionParentClass = (new ReflectionClass($object))->getParentClass();
         if (!$reflectionParentClass) {
             throw new \InvalidArgumentException("Object haven't parent __constructor.");
         }
+
         $reflectionParentConstruct = $reflectionParentClass->getConstructor();
-        if(is_null($reflectionParentConstruct)) {
+        if (is_null($reflectionParentConstruct)) {
             return $dependencies;
         }
+
         $parentParams = $reflectionParentConstruct->getParameters();
         foreach ($parentParams as $parentParam) {
             $paramName = $parentParam->getName();
@@ -341,7 +342,7 @@ class InsideConstruct implements InsideConstructInterface
             static::injectDependencyToCaller($backtraceInfo->getReflectionClass(), $backtraceInfo->getObject(), $propertyName, $dependency);
         }
         if ($reflectionParentClass) {
-            static::parentConstruct($backtraceInfo->getObject(), $parentConstructorDependencies);
+            static::parentConstruct($reflectionParentClass, $backtraceInfo->getObject(), $parentConstructorDependencies);
         }
         return $dependencies;
     }
@@ -417,6 +418,6 @@ class InsideConstruct implements InsideConstructInterface
         $backtraceInfo = static::getCallerInfo();
         static::validateCallerMethod($backtraceInfo->getReflectionMethod(), "__construct");
 
-        return static::parentConstruct($backtraceInfo->getObject(), $loadParams);
+        return static::parentConstruct($backtraceInfo->getReflectionClass()->getParentClass(), $backtraceInfo->getObject(), $loadParams);
     }
 }

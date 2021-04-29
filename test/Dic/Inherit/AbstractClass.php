@@ -3,10 +3,12 @@
 
 namespace rollun\test\dic\Inherit;
 
-
-use rollun\dic\InsideConstruct;
-
 class AbstractClass
 {
+    public $aTest;
 
+    public function __construct()
+    {
+        $this->aTest = "test";
+    }
 }
