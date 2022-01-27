@@ -146,7 +146,12 @@ class InsideConstruct implements InsideConstructInterface
      */
     private static function validateType($dependency, $type)
     {
-        if (is_null($type)) return;
+        if (is_null($type)) {
+            return;
+        }
+        if ($type instanceof \ReflectionNamedType) {
+            $type = $type->getName();
+        }
         $functionName = "is_$type";
         if (function_exists($functionName)) {
             $isInvalid = $functionName($dependency);
