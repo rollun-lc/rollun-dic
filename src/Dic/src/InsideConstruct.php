@@ -376,7 +376,7 @@ class InsideConstruct implements InsideConstructInterface
 
         $reflectionParentClass = $backtraceInfo->getReflectionClass()->getParentClass();
 
-        if ($reflectionParentClass) {
+        while ($reflectionParentClass) {
             //load parent dependency
             $parentDependencies = static::getPropertiesDependency(
                 $reflectionParentClass,
@@ -387,6 +387,8 @@ class InsideConstruct implements InsideConstructInterface
             foreach ($parentDependencies as $propertyName => $dependency) {
                 static::injectDependencyToCaller($reflectionParentClass, $backtraceInfo->getObject(), $propertyName, $dependency);
             }
+
+            $reflectionParentClass = $reflectionParentClass->getParentClass();
         }
 
         return $dependencies;
