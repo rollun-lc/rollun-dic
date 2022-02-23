@@ -21,7 +21,7 @@
  * - Configuration caching is _disabled_.
  */
 
-use Zend\ConfigAggregator\ConfigAggregator;
+use Laminas\ConfigAggregator\ConfigAggregator;
 
 return [
     'debug' => true,

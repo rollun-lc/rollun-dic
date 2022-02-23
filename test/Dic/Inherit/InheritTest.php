@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class InheritTest extends TestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         global $container;
         $container->setService(DependencyClass::class, new DependencyClass());

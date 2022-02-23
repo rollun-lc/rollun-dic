@@ -20,7 +20,15 @@
     "psr/container": "^1.0"
   },
   "require-dev": {
-
+    "phpunit/phpunit": "^9.5.10",
+    "symfony/dotenv": "6.1.x-dev",
+    "laminas/laminas-config-aggregator": "^1.7",
+    "laminas/laminas-http": "^2.15.1",
+    "laminas/laminas-servicemanager": "^3.10.0",
+    "laminas/laminas-db": "^2.13.4",
+    "laminas/laminas-diactoros": "^2.8.0",
+    "laminas/laminas-stratigility": "^3.5.0",
+    "mezzio/mezzio": "^3.9"
   },
   "autoload": {
     "psr-4": {
