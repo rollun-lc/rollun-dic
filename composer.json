@@ -21,7 +21,7 @@
   },
   "require-dev": {
     "phpunit/phpunit": "^9.5.10",
-    "symfony/dotenv": "6.1.x-dev",
+    "symfony/dotenv": "^6.0.3",
     "laminas/laminas-config-aggregator": "^1.7",
     "laminas/laminas-http": "^2.15.1",
     "laminas/laminas-servicemanager": "^3.10.0",
