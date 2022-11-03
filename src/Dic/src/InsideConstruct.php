@@ -43,7 +43,7 @@ class InsideConstruct implements InsideConstructInterface
         static::$container = static::$container ? static::$container : $container;
         if (!(isset(static::$container) && static::$container instanceof ContainerInterface)) {
             throw new RuntimeException(
-                'global $contaner or InsideConstruct::$contaner'
+                'global $container or InsideConstruct::$container'
                 . ' must be inited'
             );
         }
