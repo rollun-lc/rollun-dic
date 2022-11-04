@@ -81,11 +81,11 @@ private свойства - инициализация свойств в инст
         }
     }
 
-    /* @var $contaner ContainerInterface */
-    global $contaner;
-    $propA = $contaner->has('propA') ? $contaner->get('propA') : null;
-    $propB = $contaner->has('propB') ? $contaner->get('propB') : null;
-    $propC = $contaner->has('propC') ? $contaner->get('propC') : null;
+    /* @var $container ContainerInterface */
+    global $container;
+    $propA = $container->has('propA') ? $container->get('propA') : null;
+    $propB = $container->has('propB') ? $container->get('propB') : null;
+    $propC = $container->has('propC') ? $container->get('propC') : null;
 
     new Class1($propA, $propB, $propC);
 ```
@@ -132,7 +132,7 @@ private свойства - инициализация свойств в инст
 Если так:
 
             new Class1(new stdClass(), null);
-то только один (последний) параметр будет инициализирован сервисом `$contaner->get('propC')`.  
+то только один (последний) параметр будет инициализирован сервисом `$container->get('propC')`.  
 Два других получат значения `new stdClass(`) и `null`. Но присваивания свойствам объекта или вызовы сеттеров (см. далее) отработают для всех параметров. 
 
 
