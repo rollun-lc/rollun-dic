@@ -8,10 +8,9 @@
 
 namespace rollun\test\dic;
 
-use http\Exception\RuntimeException;
-use Interop\Container\ContainerInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use Psr\Container\ContainerInterface;
 use rollun\dic\Example\InheritanceSimpleDependency;
 use rollun\dic\Example\SerializedService;
 use rollun\dic\Example\ServiceWithParentWithoutConstructor;
