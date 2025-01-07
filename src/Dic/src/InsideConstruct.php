@@ -3,8 +3,8 @@
 
 namespace rollun\dic;
 
-use Interop\Container\ContainerInterface;
 use Psr\Container\ContainerExceptionInterface;
+use Psr\Container\ContainerInterface;
 use Psr\Container\NotFoundExceptionInterface;
 use ReflectionClass;
 use ReflectionException;
@@ -146,7 +146,12 @@ class InsideConstruct implements InsideConstructInterface
      */
     private static function validateType($dependency, $type)
     {
-        if (is_null($type)) return;
+        if (is_null($type)) {
+            return;
+        }
+        if ($type instanceof \ReflectionNamedType) {
+            $type = $type->getName();
+        }
         $functionName = "is_$type";
         if (function_exists($functionName)) {
             $isInvalid = $functionName($dependency);
@@ -194,7 +199,7 @@ class InsideConstruct implements InsideConstructInterface
                 /*if (!$paramType) {
                     //trigger_error("Not found value for untyped param $dependencyName. Use default value", E_USER_WARNING);
                 } else*/
-                if ($paramType && $reflectionParam->getClass()) {
+                if ($paramType && $reflectionParam->getType()) {
                     throw new RuntimeException("Dependency with name $dependencyName not found in container.");
                 }
                 $dependency = $reflectionParam->getDefaultValue();

@@ -8,9 +8,9 @@
 
 namespace rollun\test\dic;
 
-use Interop\Container\ContainerInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use Psr\Container\ContainerInterface;
 use rollun\dic\Example\InheritanceSimpleDependency;
 use rollun\dic\Example\SerializedService;
 use rollun\dic\Example\ServiceWithParentWithoutConstructor;
@@ -49,6 +49,7 @@ class InsideConstructTest extends TestCase
      * @expectedException \RuntimeException
      */
     public function testCallNotInConstructorException() {
+        $this->expectException(\RuntimeException::class);
         InsideConstruct::init();
     }
 
@@ -81,6 +82,7 @@ class InsideConstructTest extends TestCase
      * @expectedException \RuntimeException
      */
     public function testNotFoundServiceException() {
+        $this->expectException(\RuntimeException::class);
         $this->container->method("has")->willReturn(false);
         new SimpleService();
     }
@@ -270,7 +272,7 @@ class InsideConstructTest extends TestCase
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->container = $this->getMockBuilder(ContainerInterface::class)->getMock();
         InsideConstruct::setContainer($this->container);

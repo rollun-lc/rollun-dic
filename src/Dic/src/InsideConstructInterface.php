@@ -2,7 +2,7 @@
 
 namespace rollun\dic;
 
-use Interop\Container\ContainerInterface;
+use Psr\Container\ContainerInterface;
 
 /**
  * Static service
